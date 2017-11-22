@@ -10,4 +10,5 @@ android:
 jdk:
   - oraclejdk8
 
-before_script: - chmod +x gradlew
+before_script:
+  - chmod +x gradlew
