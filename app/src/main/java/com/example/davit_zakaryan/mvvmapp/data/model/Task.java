@@ -1,4 +1,4 @@
-package com.example.davit_zakaryan.mvvmapp.ui.data.model;
+package com.example.davit_zakaryan.mvvmapp.data.model;
 
 import java.util.Date;
 
