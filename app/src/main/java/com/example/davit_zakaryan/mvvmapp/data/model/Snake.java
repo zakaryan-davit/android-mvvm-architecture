@@ -4,6 +4,6 @@ package com.example.davit_zakaryan.mvvmapp.data.model;
  * Created by Davit_Zakaryan on 11/22/2017.
  */
 
-public class Snake extends CommonItem {
+public class Snake extends CommonElement {
 
 }
