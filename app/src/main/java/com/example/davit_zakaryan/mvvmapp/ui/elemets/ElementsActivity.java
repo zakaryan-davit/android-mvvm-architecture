@@ -1,6 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.ui.elemets;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,17 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.elementdetails.ElementDetailsActivity;
 import com.example.davit_zakaryan.mvvmapp.R;
 
 public class ElementsActivity extends AppCompatActivity {
 
+	private ElementsViewModel viewModel;
 	private View.OnClickListener onClickListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		// setContentView(R.layout.activity_main);
+
+		ActivityElementsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_elements);
+		binding.setViewModel(viewModel);
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
