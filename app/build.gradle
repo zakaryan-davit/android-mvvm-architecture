@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 project.ext {
     supportLibraryVersion = "27.0.1"
     picassoVersion = "2.5.2"
+    stethoVersion = "1.5.0"
 }
 
 android {
@@ -41,4 +42,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     implementation "com.squareup.picasso:picasso:$project.picassoVersion"
+
+    // Debug bridge
+    debugImplementation "com.facebook.stetho:stetho:$project.stethoVersion"
 }
