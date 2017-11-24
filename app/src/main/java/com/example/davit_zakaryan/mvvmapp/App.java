@@ -7,6 +7,10 @@ import com.facebook.stetho.Stetho;
 public class App extends Application {
 	public void onCreate() {
 		super.onCreate();
-		Stetho.initializeWithDefaults(this);
+
+		// A simple initialization.
+		if (BuildConfig.DEBUG) {
+			Stetho.initializeWithDefaults(this);
+		}
 	}
 }

@@ -41,8 +41,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    // Image loading library Picasso
     implementation "com.squareup.picasso:picasso:$project.picassoVersion"
 
-    // Debug bridge
+    // Debug bridge Stetho
     debugImplementation "com.facebook.stetho:stetho:$project.stethoVersion"
 }
