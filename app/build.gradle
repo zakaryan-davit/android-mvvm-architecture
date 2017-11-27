@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 
 project.ext {
-    supportLibraryVersion = "27.0.1"
+    supportLibraryVersion = "26.0.1"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.davit_zakaryan.mvvmapp"
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
