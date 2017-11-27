@@ -1,17 +1,25 @@
 apply plugin: 'com.android.application'
 
 project.ext {
+    // Sdk and tools
+    minSdkVersion = 17
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+
+    // App dependencies
     supportLibraryVersion = "26.1.0"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
     defaultConfig {
         applicationId "com.example.davit_zakaryan.mvvmapp"
-        minSdkVersion 17
-        targetSdkVersion 26
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
