@@ -18,10 +18,15 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 
 public class ElementDetailsActivity extends BaseActivity {
 
+	private int chosenType;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.activity_details);
+
+		chosenType = getIntent().getIntExtra("chosen_type", 0);
+		setTitle(chosenType);
 
 		CommonElement element = new CommonElement();
 		element.name = "Simple name ";
@@ -29,7 +34,7 @@ public class ElementDetailsActivity extends BaseActivity {
 		element.description = "Lorem Lorem ipsum dolor sit amet, mollis po mus eu felis. Risus varius, a e";
 		element.level = 1;
 
-		ActivityDetailsBindedBinding  binding = DataBindingUtil.setContentView(this, R.layout.activity_details_binded);
+		ActivityDetailsBindedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details_binded);
 		binding.setElement(element);
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -56,5 +61,27 @@ public class ElementDetailsActivity extends BaseActivity {
 				break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	// TODO there is duplicate method in ElementsActivity class
+	// should be removed when switching to fragments
+	@Override
+	public void setTitle(int chosenType) {
+		int titleId;
+		switch (chosenType) {
+			case 0:
+				titleId = R.string.snakes;
+				break;
+			case 1:
+				titleId = R.string.cards;
+				break;
+			case 2:
+				titleId = R.string.tasks;
+				break;
+			default:
+				titleId = R.string.snakes;
+				break;
+		}
+		super.setTitle(titleId);
 	}
 }

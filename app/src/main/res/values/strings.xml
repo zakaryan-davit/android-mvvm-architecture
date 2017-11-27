@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MvvmApp</string>
+    <string-array name="elements">
+        <item>Snakes</item>
+        <item>Card games</item>
+        <item>Tasks</item>
+    </string-array>
+
+    <string name="snakes">Snakes</string>
+    <string name="cards">Card games</string>
+    <string name="tasks">Tasks</string>
+
+    <!--Dialog -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_choose">Choose</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_choose_type">Choose type</string>
+
 </resources>
