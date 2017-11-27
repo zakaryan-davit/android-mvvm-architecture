@@ -16,6 +16,8 @@ android:
     - extra-google-m2repository
 
     # - extra
+script:
+   - ./gradlew build connectedCheck
 
 cache:
   directories:
