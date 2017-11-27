@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 project.ext {
     supportLibraryVersion = "27.0.1"
-    picassoVersion = "2.5.2"
+    frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
 }
 
@@ -41,8 +41,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // Image loading library Picasso
-    implementation "com.squareup.picasso:picasso:$project.picassoVersion"
+    // Image loading library Fresco
+    implementation "com.facebook.fresco:fresco:$project.frescoVersion"
 
     // Debug bridge Stetho
     debugImplementation "com.facebook.stetho:stetho:$project.stethoVersion"
