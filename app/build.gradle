@@ -53,5 +53,5 @@ dependencies {
     implementation "com.facebook.fresco:fresco:$project.frescoVersion"
 
     // Debug bridge Stetho
-    debugImplementation "com.facebook.stetho:stetho:$project.stethoVersion"
+    implementation "com.facebook.stetho:stetho:$project.stethoVersion"
 }
