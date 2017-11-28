@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.davit_zakaryan.mvvmapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -20,8 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.elementdetails.ElementDetailsActivity"
+            android:name=".ui.element_details.ElementDetailsActivity"
             android:parentActivityName=".ui.elemets.ElementsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.davit_zakaryan.mvvmapp.ui.elemets.ElementsActivity" />
+        </activity>
+        <activity
+            android:name=".ui.element_form.ElementFormActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

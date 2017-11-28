@@ -20,19 +20,19 @@
 
         <include
             android:id="@+id/list_item1"
-            layout="@layout/item_common_list" />
+            layout="@layout/item_element" />
 
         <include
             android:id="@+id/list_item2"
-            layout="@layout/item_common_list" />
+            layout="@layout/item_element" />
 
         <include
             android:id="@+id/list_item3"
-            layout="@layout/item_common_list" />
+            layout="@layout/item_element" />
 
         <include
             android:id="@+id/list_item4"
-            layout="@layout/item_common_list" />
+            layout="@layout/item_element" />
 
         <Space
             android:layout_width="match_parent"

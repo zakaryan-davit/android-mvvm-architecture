@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.elementdetails.ElementDetailsActivity;
+import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
+import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
 public class ElementsActivity extends AppCompatActivity {
 
@@ -44,9 +45,15 @@ public class ElementsActivity extends AppCompatActivity {
 		onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(ElementsActivity.this, ElementDetailsActivity.class);
-				intent.putExtra("chosen_type", chosenType);
-				startActivity(intent);
+				if(view.getId()==R.id.fab){
+					Intent intent = new Intent(ElementsActivity.this, ElementFormActivity.class);
+					startActivity(intent);
+				} else {
+					Intent intent = new Intent(ElementsActivity.this, ElementDetailsActivity.class);
+					intent.putExtra("chosen_type", chosenType);
+					startActivity(intent);
+				}
+
 			}
 		};
 

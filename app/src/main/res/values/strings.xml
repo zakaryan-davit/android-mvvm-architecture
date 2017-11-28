@@ -16,4 +16,9 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_choose_type">Choose type</string>
 
+    <!-- Element Form page-->
+    <string name="element_form_name">Name</string>
+    <string name="element_form_short_description">Short description</string>
+    <string name="element_form_description">Long description</string>
+
 </resources>

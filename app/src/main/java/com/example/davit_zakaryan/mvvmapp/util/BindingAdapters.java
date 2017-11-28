@@ -2,7 +2,10 @@ package com.example.davit_zakaryan.mvvmapp.util;
 
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 
 /**
@@ -25,5 +28,15 @@ public class BindingAdapters {
 //				.load(url)
 //				.error(error)
 //				.into(view);
+	}
+
+	@BindingAdapter({"app:imageUrl"})
+	public static void loadImage(SimpleDraweeView view, String imageUrl) {
+		Uri uri = Uri.parse(imageUrl);
+		System.out.println(imageUrl);
+		//SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.my_image_view);
+		//draweeView.setImageURI(uri);
+
+		view.setImageURI(imageUrl);
 	}
 }
