@@ -1,4 +1,4 @@
-package com.example.davit_zakaryan.mvvmapp.ui.elementdetails;
+package com.example.davit_zakaryan.mvvmapp.ui.element_details;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.model.CommonElement;
-import com.example.davit_zakaryan.mvvmapp.databinding.ActivityDetailsBindedBinding;
+import com.example.davit_zakaryan.mvvmapp.data.model.Element;
+import com.example.davit_zakaryan.mvvmapp.databinding.ActivityDetailsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 
 /**
@@ -28,13 +28,13 @@ public class ElementDetailsActivity extends BaseActivity {
 		chosenType = getIntent().getIntExtra("chosen_type", 0);
 		setTitle(chosenType);
 
-		CommonElement element = new CommonElement();
+		Element element = new Element();
 		element.name = "Simple name ";
 		element.shortDesc = "sit amet, mollis po mus eu felis";
 		element.description = "Lorem Lorem ipsum dolor sit amet, mollis po mus eu felis. Risus varius, a e";
-		element.level = 1;
+		element.level.set(1);
 
-		ActivityDetailsBindedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details_binded);
+		ActivityDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 		binding.setElement(element);
 
 		Toolbar toolbar = findViewById(R.id.toolbar);

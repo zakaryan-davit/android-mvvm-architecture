@@ -7,7 +7,7 @@
     android:background="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/level"
+        android:id="@+id/element_form_level_text"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:background="@drawable/circle"
@@ -22,8 +22,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/level"
-        android:layout_toRightOf="@+id/level"
+        android:layout_toEndOf="@+id/element_form_level_text"
+        android:layout_toRightOf="@+id/element_form_level_text"
         android:text="Title" />
 
     <TextView
