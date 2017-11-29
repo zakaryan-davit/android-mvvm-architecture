@@ -77,14 +77,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_details_description_text" />
 
+        <com.example.customview.ShapeSelectorView
+            android:id="@+id/ShapeSelectorView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:shapeColor="#7f0000"
+            android:visibility="gone"
+            app:displayShapeName="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_view" />
+
         <com.example.customview.LovelyView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:color="#FFaa11"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:color="#FFaa11"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/custom_view"
+            app:layout_constraintTop_toBottomOf="@+id/ShapeSelectorView"
             app:level="5" />
 
         <android.support.design.widget.FloatingActionButton
