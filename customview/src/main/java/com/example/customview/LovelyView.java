@@ -29,8 +29,8 @@ public class LovelyView extends View {
 	private Rect rect;
 
 
-	private int desiredWidth;
-	private int desiredHeight;
+	private int desiredWidth = 1000;
+	private int desiredHeight = 200;
 
 
 	public LovelyView(Context context) {
@@ -67,7 +67,29 @@ public class LovelyView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+
+		// ------------------------------ Draw circle
+		paint.setColor(Color.RED);
+		//get half of the width and height as we are working with a circle
+		int viewWidthHalf = this.getMeasuredWidth() / 2;
+		int viewHeightHalf = this.getMeasuredHeight() / 2;
+
+		//get the radius as half of the width or height, whichever is smaller
+		//subtract ten so that it has some space around it
+		int radius = 0;
+		if (viewWidthHalf > viewHeightHalf) {
+			radius = viewHeightHalf - 10;
+		} else {
+			radius = viewWidthHalf - 10;
+		}
+
+		paint.setStyle(Paint.Style.FILL);
+		paint.setAntiAlias(true);
+		canvas.drawCircle(viewWidthHalf, viewHeightHalf, radius, paint);
+		// ------------------------------
+
 		//canvas.drawColor(color);
+		paint.setColor(Color.RED);
 		canvas.drawText("Level " + level, 20, 20, paint);
 		paint.setColor(Color.BLACK);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
