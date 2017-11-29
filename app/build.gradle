@@ -54,4 +54,7 @@ dependencies {
 
     // Debug bridge Stetho
     implementation "com.facebook.stetho:stetho:$project.stethoVersion"
+
+    // Custom View
+    implementation project(":customview")
 }
