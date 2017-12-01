@@ -1,10 +1,14 @@
 package com.example.davit_zakaryan.mvvmapp.util;
 
+import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.databinding.Observable;
+import android.databinding.ObservableInt;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
+import com.example.customview.GaugeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 
@@ -38,5 +42,10 @@ public class BindingAdapters {
 		//draweeView.setImageURI(uri);
 
 		view.setImageURI(imageUrl);
+	}
+
+	@BindingAdapter({"app:gv_level"})
+	public static void setLevel(GaugeView gaugeView, ObservableInt level) {
+		gaugeView.setLevel(level.get());
 	}
 }

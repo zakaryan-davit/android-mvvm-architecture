@@ -1,0 +1,236 @@
+package com.example.customview;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.RectF;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+
+/**
+ * Created by Davit_Zakaryan on 12/1/2017.
+ */
+
+public class GaugeView extends View {
+
+	// ===========================================================
+	// Constants
+	// ===========================================================
+
+	protected static final String LOG_TAG = GaugeView.class.getSimpleName();
+	private final int SCALE_START_ANGLE = 150;
+	private final int SCALE_WHOLE_ANGLE = 240;
+	private final float SCALE_DIVIDER_ANGLE = 4;
+	private final int SCALE_PADDING = DisplayUtils.convertDpToPixel(8);
+	private final int THICKNESS = DisplayUtils.convertDpToPixel(20);
+	private final int ARROW_TRIANGLE_BASE = DisplayUtils.convertDpToPixel(4);
+	private final int ARROW_RADIUS = DisplayUtils.convertDpToPixel(8);
+
+
+	// ===========================================================
+	// Fields
+	// ===========================================================
+
+	// Attribute fields
+	private int level;
+	private int count;
+
+	// Calculated fields
+	private int desiredWidth;
+	private int desiredHeight;
+	private int centerX;
+	private int centerY;
+	private int scaleOuterRadius;
+	private int scaleInnerRadius;
+	private float sweepAngle;
+	private int arrowLength;
+
+	// Drawing tools
+	private Paint paint;
+	private RectF outerRectF;
+	private RectF innerRectF;
+	private Path path;
+	private float[] hsv = new float[3];
+	private Point p1, p2, p3;
+
+
+	// ===========================================================
+	// Constructors
+	// ===========================================================
+
+	public GaugeView(Context context) {
+		super(context);
+		setupPaint();
+	}
+
+	public GaugeView(Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+
+		//get the attributes specified in attrs.xml using the name we included
+		TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs,
+				R.styleable.GaugeView, 0, 0);
+
+		try {
+			count = typedArray.getColor(R.styleable.GaugeView_gv_scalesCount, 10);
+			level = typedArray.getInteger(R.styleable.GaugeView_gv_level, 1);
+		} finally {
+			typedArray.recycle();
+		}
+		setupPaint();
+	}
+
+
+	// ===========================================================
+	// Getter & Setter
+	// ===========================================================
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+		invalidate();
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+		invalidate();
+	}
+
+
+	// ===========================================================
+	// Methods for/from SuperClass/Interfaces
+	// ===========================================================
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+		int width;
+		if (widthMode == MeasureSpec.EXACTLY) {
+			width = widthSize;
+		} else if (widthMode == MeasureSpec.AT_MOST) {
+			width = Math.min(desiredWidth, widthSize);
+		} else {
+			width = desiredWidth;
+		}
+
+		int height;
+		if (heightMode == MeasureSpec.EXACTLY) {
+			height = heightSize;
+		} else if (heightMode == MeasureSpec.AT_MOST) {
+			height = Math.min(desiredHeight, heightSize);
+		} else {
+			height = desiredHeight;
+		}
+
+		centerX = width / 2;
+		centerY = height / 2;
+		scaleOuterRadius = Math.min(width - SCALE_PADDING, height - SCALE_PADDING) / 2;
+		scaleInnerRadius = scaleOuterRadius - THICKNESS;
+		arrowLength = Math.abs(scaleOuterRadius - THICKNESS / 2); //arrow length is in the middle. ??TOD why it is negative
+		outerRectF.set(centerX - scaleOuterRadius, centerY - scaleOuterRadius, centerX + scaleOuterRadius, centerY + scaleOuterRadius);
+		innerRectF.set(centerX - scaleInnerRadius, centerY - scaleInnerRadius, centerX + scaleInnerRadius, centerY + scaleInnerRadius);
+
+		// Calling this method determines the measured width and height
+		setMeasuredDimension(width, height);
+	}
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+
+		drawScale(canvas);
+
+		drawArrow(canvas);
+	}
+
+	// ===========================================================
+	// Methods
+	// ===========================================================
+
+	private void setupPaint() {
+		paint = new Paint();
+		innerRectF = new RectF();
+		outerRectF = new RectF();
+		path = new Path();
+		p1 = new Point();
+		p2 = new Point();
+		p3 = new Point();
+		sweepAngle = (SCALE_WHOLE_ANGLE - SCALE_DIVIDER_ANGLE * (count - 1)) / count;
+		Log.d(LOG_TAG, "Sweep Angle of each = " + sweepAngle);
+	}
+
+	private void drawScale(Canvas canvas) {
+		paint.setAntiAlias(true);
+		paint.setStrokeCap(Paint.Cap.BUTT);
+		paint.setStyle(Paint.Style.FILL);
+		hsv[1] = 1;
+		hsv[2] = 1;
+		for (int i = 0; i < count; i++) {
+			hsv[0] = (350 / count) * i;
+			paint.setColor(Color.HSVToColor(hsv));
+
+			float arcOffset = SCALE_START_ANGLE + i * (sweepAngle + SCALE_DIVIDER_ANGLE);
+			path.reset();
+			path.arcTo(outerRectF, arcOffset, sweepAngle);
+			path.arcTo(innerRectF, arcOffset + sweepAngle, -sweepAngle);
+			path.close();
+			canvas.drawPath(path, paint);
+		}
+	}
+
+	private void drawArrow(Canvas canvas) {
+		paint.setColor(Color.BLACK);
+		paint.setStyle(Paint.Style.FILL);
+
+		paint.setStrokeWidth(4);
+
+		int arrowDegree = 180 - SCALE_START_ANGLE;
+
+		int x1 = (int) (arrowLength * Math.cos(Math.toRadians(arrowDegree)));
+		int y1 = (int) (arrowLength * Math.sin(Math.toRadians(arrowDegree)));
+
+		int x2 = (int) (ARROW_TRIANGLE_BASE * Math.cos(Math.toRadians(90 - arrowDegree)));
+		int y2 = (int) (ARROW_TRIANGLE_BASE * Math.sin(Math.toRadians(90 - arrowDegree)));
+
+		int x3 = (int) (ARROW_TRIANGLE_BASE * Math.cos(Math.toRadians(90 - arrowDegree)));
+		int y3 = (int) (ARROW_TRIANGLE_BASE * Math.sin(Math.toRadians(90 - arrowDegree)));
+
+		p1.set(centerX - x1, centerY + y1);
+		p2.set(centerX - x2, centerY - y2);
+		p3.set(centerX + x3, centerY + y3);
+
+		path.reset();
+		path.moveTo(p1.x, p1.y);
+		path.lineTo(p2.x, p2.y);
+		path.lineTo(p3.x, p3.y);
+		path.close();
+
+		canvas.rotate((level - 1) * (sweepAngle + SCALE_DIVIDER_ANGLE) + sweepAngle / 2, centerX, centerY);
+		canvas.drawPath(path, paint);
+
+		paint.setColor(Color.BLACK);
+		canvas.drawCircle(centerX, centerY, ARROW_RADIUS, paint);
+	}
+
+	// ===========================================================
+	// Inner and Anonymous Classes
+	// ===========================================================
+
+
+}

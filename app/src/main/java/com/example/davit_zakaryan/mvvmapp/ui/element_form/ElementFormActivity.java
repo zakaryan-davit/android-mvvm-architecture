@@ -25,6 +25,7 @@ public class ElementFormActivity extends BaseActivity {
 
 		element = new Element();
 		element.url = "http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg";
+		element.level.set(1);
 		element.description = "";
 
 		ActivityElementFormBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_element_form);

@@ -81,21 +81,19 @@
             android:id="@+id/ShapeSelectorView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:shapeColor="#7f0000"
             android:visibility="gone"
             app:displayShapeName="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/custom_view" />
+            app:layout_constraintTop_toBottomOf="@+id/custom_view"
+            app:shapeColor="#7f0000" />
 
-        <com.example.customview.LovelyView
+        <com.example.customview.GaugeView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:color="#FFaa11"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ShapeSelectorView"
-            app:level="5" />
+            app:layout_constraintTop_toBottomOf="@+id/ShapeSelectorView" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
