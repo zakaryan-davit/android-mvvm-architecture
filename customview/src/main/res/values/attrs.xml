@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LovelyView">
+        <attr name="level" format="integer" />
+        <attr name="color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ShapeSelectorView">
+        <attr name="shapeColor" format="color" />
+        <attr name="displayShapeName" format="boolean" />
+    </declare-styleable>
+
+</resources>
