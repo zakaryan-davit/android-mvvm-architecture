@@ -26,11 +26,11 @@ public class GaugeView extends View {
 	protected static final String LOG_TAG = GaugeView.class.getSimpleName();
 	private final int SCALE_START_ANGLE = 150;
 	private final int SCALE_WHOLE_ANGLE = 240;
-	private final float SCALE_DIVIDER_ANGLE = 4;
+	private final float SCALE_DIVIDER_ANGLE = 2;
 	private final int SCALE_PADDING = DisplayUtils.convertDpToPixel(8);
-	private final int THICKNESS = DisplayUtils.convertDpToPixel(20);
-	private final int ARROW_TRIANGLE_BASE = DisplayUtils.convertDpToPixel(4);
-	private final int ARROW_RADIUS = DisplayUtils.convertDpToPixel(8);
+	private final float THICKNESS = 0.4f; //percent
+	private final int ARROW_TRIANGLE_BASE = DisplayUtils.convertDpToPixel(3);
+	private final int ARROW_RADIUS = DisplayUtils.convertDpToPixel(6);
 
 
 	// ===========================================================
@@ -47,7 +47,7 @@ public class GaugeView extends View {
 	private int centerX;
 	private int centerY;
 	private int scaleOuterRadius;
-	private int scaleInnerRadius;
+	private float scaleInnerRadius;
 	private float sweepAngle;
 	private int arrowLength;
 
@@ -95,7 +95,7 @@ public class GaugeView extends View {
 	}
 
 	public void setLevel(int level) {
-		if (level < count) {
+		if (level <= count) {
 			this.level = level;
 			invalidate();
 		}
@@ -143,8 +143,8 @@ public class GaugeView extends View {
 		centerX = width / 2;
 		centerY = height / 2;
 		scaleOuterRadius = Math.min(width - SCALE_PADDING, height - SCALE_PADDING) / 2;
-		scaleInnerRadius = scaleOuterRadius - THICKNESS;
-		arrowLength = Math.abs(scaleOuterRadius - THICKNESS / 2); //arrow length is in the middle. ??TOD why it is negative
+		scaleInnerRadius = (scaleOuterRadius * THICKNESS);
+		arrowLength = (int) Math.abs((scaleOuterRadius + scaleInnerRadius) / 1.5); //arrow length is in the middle. ??TODO why it is negative
 		outerRectF.set(centerX - scaleOuterRadius, centerY - scaleOuterRadius, centerX + scaleOuterRadius, centerY + scaleOuterRadius);
 		innerRectF.set(centerX - scaleInnerRadius, centerY - scaleInnerRadius, centerX + scaleInnerRadius, centerY + scaleInnerRadius);
 
@@ -179,12 +179,11 @@ public class GaugeView extends View {
 
 	private void drawScale(Canvas canvas) {
 		paint.setAntiAlias(true);
-		paint.setStrokeCap(Paint.Cap.BUTT);
 		paint.setStyle(Paint.Style.FILL);
 		hsv[1] = 1;
 		hsv[2] = 1;
-		for (int i = 0; i < count; i++) {
-			hsv[0] = (350 / count) * i;
+		for (float i = 0; i < count; i++) {
+			hsv[0] = (324f / count) * (count - 1 - i);
 			paint.setColor(Color.HSVToColor(hsv));
 
 			float arcOffset = SCALE_START_ANGLE + i * (sweepAngle + SCALE_DIVIDER_ANGLE);
