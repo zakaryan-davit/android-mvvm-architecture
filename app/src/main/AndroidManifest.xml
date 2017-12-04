@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.elemets.ElementsActivity"
+            android:name=".ui.elements.ElementsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,18 +22,18 @@
         </activity>
         <activity
             android:name=".ui.element_details.ElementDetailsActivity"
-            android:parentActivityName=".ui.elemets.ElementsActivity"
+            android:parentActivityName=".ui.elements.ElementsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.davit_zakaryan.mvvmapp.ui.elemets.ElementsActivity" />
+                android:value="com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsActivity" />
         </activity>
         <activity
             android:name=".ui.element_form.ElementFormActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.davit_zakaryan.mvvmapp.ui.elemets.ElementsActivity" />
+                android:value="com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsActivity" />
         </activity>
     </application>
 

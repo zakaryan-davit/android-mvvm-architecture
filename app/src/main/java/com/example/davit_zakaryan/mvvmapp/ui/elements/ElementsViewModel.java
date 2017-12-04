@@ -1,4 +1,4 @@
-package com.example.davit_zakaryan.mvvmapp.ui.elemets;
+package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
 /**
  * Created by Davit_Zakaryan on 11/23/2017.

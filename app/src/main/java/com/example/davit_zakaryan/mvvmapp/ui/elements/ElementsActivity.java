@@ -1,13 +1,16 @@
-package com.example.davit_zakaryan.mvvmapp.ui.elemets;
+package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.customview.GaugeView;
+import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
@@ -45,7 +50,7 @@ public class ElementsActivity extends AppCompatActivity {
 		onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if(view.getId()==R.id.fab){
+				if (view.getId() == R.id.fab) {
 					Intent intent = new Intent(ElementsActivity.this, ElementFormActivity.class);
 					startActivity(intent);
 				} else {
@@ -61,6 +66,10 @@ public class ElementsActivity extends AppCompatActivity {
 		findViewById(R.id.list_item2).setOnClickListener(onClickListener);
 		findViewById(R.id.list_item3).setOnClickListener(onClickListener);
 		findViewById(R.id.list_item4).setOnClickListener(onClickListener);
+
+		@SuppressLint("WrongViewCast") GradientDrawable shapeDrawable = (GradientDrawable) findViewById(R.id.element_form_level_text).getBackground();
+		shapeDrawable.setColor(GaugeView.getColorByLevel(App.getElementInstance().level.get() - 1, 10));
+
 
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(onClickListener);
