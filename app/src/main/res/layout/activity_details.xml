@@ -24,12 +24,13 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="?attr/actionBarSize"
             android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:imageUrl="@{element.url}"
             fresco:placeholderImage="@drawable/ic_launcher_background"
             fresco:placeholderImageScaleType="centerCrop"
             tools:background="@color/colorAccent" />
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="Level"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_details_description_text" />
 
@@ -88,10 +89,12 @@
             app:shapeColor="#7f0000" />
 
         <com.example.customview.GaugeView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            app:gv_level="@{element.level}"
+            app:gv_scalesCount="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ShapeSelectorView" />
 

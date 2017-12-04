@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -42,8 +44,8 @@ public class GaugeView extends View {
 	private int count;
 
 	// Calculated fields
-	private int desiredWidth;
-	private int desiredHeight;
+	private int desiredWidth = DisplayUtils.convertDpToPixel(100);
+	private int desiredHeight = DisplayUtils.convertDpToPixel(100);
 	private int centerX;
 	private int centerY;
 	private int scaleOuterRadius;
@@ -180,12 +182,8 @@ public class GaugeView extends View {
 	private void drawScale(Canvas canvas) {
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
-		hsv[1] = 1;
-		hsv[2] = 1;
 		for (float i = 0; i < count; i++) {
-			hsv[0] = (324f / count) * (count - 1 - i);
-			paint.setColor(Color.HSVToColor(hsv));
-
+			paint.setColor(getColorByLevel(i, count, hsv));
 			float arcOffset = SCALE_START_ANGLE + i * (sweepAngle + SCALE_DIVIDER_ANGLE);
 			path.reset();
 			path.arcTo(outerRectF, arcOffset, sweepAngle);
@@ -233,5 +231,19 @@ public class GaugeView extends View {
 	// Inner and Anonymous Classes
 	// ===========================================================
 
+	@ColorInt
+	public static int getColorByLevel(int level, int count) {
+		return getColorByLevel(level, count, null);
+	}
 
+	@ColorInt
+	public static int getColorByLevel(float level, int count, @Size(3) float hsv[]) {
+		if (hsv == null) {
+			hsv = new float[3];
+		}
+		hsv[0] = (324f / count) * (count - 1 - level);
+		hsv[1] = 1;
+		hsv[2] = 1;
+		return Color.HSVToColor(hsv);
+	}
 }
