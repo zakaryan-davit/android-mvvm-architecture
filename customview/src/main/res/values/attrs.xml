@@ -10,4 +10,9 @@
         <attr name="displayShapeName" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="GaugeView">
+        <attr name="gv_level" format="integer" />
+        <attr name="gv_scalesCount" format="integer" />
+    </declare-styleable>
+
 </resources>
