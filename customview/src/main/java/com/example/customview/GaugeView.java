@@ -95,8 +95,10 @@ public class GaugeView extends View {
 	}
 
 	public void setLevel(int level) {
-		this.level = level;
-		invalidate();
+		if (level < count) {
+			this.level = level;
+			invalidate();
+		}
 	}
 
 	public int getCount() {
