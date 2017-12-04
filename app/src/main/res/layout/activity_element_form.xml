@@ -162,7 +162,7 @@
             <com.example.customview.GaugeView
                 android:id="@+id/gaugeView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:gv_level="@{element.level}"
