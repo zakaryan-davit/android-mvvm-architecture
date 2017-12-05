@@ -20,14 +20,12 @@ import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 public class ElementDetailsActivity extends BaseActivity {
 
-	private int chosenType;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.activity_details);
 
-		chosenType = getIntent().getIntExtra(Constants.EXTRA_CHOSEN_TYPE, 0);
+		int chosenType = getIntent().getIntExtra(Constants.EXTRA_CHOSEN_TYPE, 0);
 		setTitle(chosenType);
 
 		Element element = App.getElementInstance();

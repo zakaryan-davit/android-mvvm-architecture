@@ -1,8 +1,8 @@
-package com.example.customview;
+package com.example.custom_view;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

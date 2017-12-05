@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_alarm"
-        android:title="ALARM"
+        android:title="@string/menu_item_alarm"
         app:showAsAction="always" />
 </menu>

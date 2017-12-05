@@ -42,6 +42,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
             android:text="@{element.shortDesc}"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Short description" />
@@ -53,6 +54,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
             android:text="@{element.name}"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/activity_details_short_desc_text"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Name" />
@@ -68,27 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             tools:text="Long description" />
 
-        <TextView
-            android:id="@+id/custom_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Level"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_details_description_text" />
-
-        <com.example.customview.ShapeSelectorView
-            android:id="@+id/ShapeSelectorView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:visibility="gone"
-            app:displayShapeName="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/custom_view"
-            app:shapeColor="#7f0000" />
-
-        <com.example.customview.GaugeView
+        <com.example.custom_view.GaugeView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -96,7 +78,7 @@
             app:gv_level="@{element.level}"
             app:gv_scalesCount="10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ShapeSelectorView" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_details_description_text" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

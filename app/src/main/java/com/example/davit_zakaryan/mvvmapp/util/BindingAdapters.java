@@ -1,9 +1,8 @@
 package com.example.davit_zakaryan.mvvmapp.util;
 
 import android.databinding.BindingAdapter;
-import android.databinding.ObservableInt;
 
-import com.example.customview.GaugeView;
+import com.example.custom_view.GaugeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class BindingAdapters {

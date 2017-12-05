@@ -18,13 +18,11 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 
 public class ElementFormActivity extends BaseActivity {
 
-	private Element element;
-
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		element = App.getElementInstance();
+		Element element = App.getElementInstance();
 
 		ActivityElementFormBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_element_form);
 		binding.setElement(element);

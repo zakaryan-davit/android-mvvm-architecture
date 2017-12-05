@@ -20,5 +20,15 @@
     <string name="element_form_name">Name</string>
     <string name="element_form_short_description">Short description</string>
     <string name="element_form_description">Long description</string>
+    <string name="element_form_level">Level</string>
+    <string name="element_form_decrement">-</string>
+    <string name="element_form_increment">+</string>
+    <string name="element_form_background_image">Background Image</string>
+    <string name="element_form_save">Save</string>
+
+    <!--Menu item-->
+    <string name="menu_item_alarm">ALARM</string>
+    <string name="menu_item_edit">EDIT</string>
+    <string name="menu_item_reset">RESET</string>
 
 </resources>

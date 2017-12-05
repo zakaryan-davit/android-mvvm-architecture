@@ -35,7 +35,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +55,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +96,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
                 android:labelFor="@id/element_form_level_edit_text"
-                android:text="Level"
+                android:text="@string/element_form_level"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/element_form_description_input_layout" />
 
@@ -108,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:onClick="@{() -> element.decrementLevel()}"
-                android:text="-"
+                android:text="@string/element_form_decrement"
                 app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -118,8 +116,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
-                android:enabled="false"
                 android:ems="2"
+                android:enabled="false"
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:singleLine="true"
@@ -133,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:onClick="@{() -> element.incrementLevel()}"
-                android:text="+"
+                android:text="@string/element_form_increment"
                 app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
                 app:layout_constraintStart_toEndOf="@+id/element_form_level_edit_text" />
 
@@ -143,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:text="Bacground Image"
+                android:text="@string/element_form_background_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/element_form_level_edit_text" />
 
@@ -159,7 +157,7 @@
                 fresco:imageUrl="@{element.url}"
                 tools:background="@mipmap/ic_launcher" />
 
-            <com.example.customview.GaugeView
+            <com.example.custom_view.GaugeView
                 android:id="@+id/gaugeView"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -177,7 +175,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:text="Save"
+                android:text="@string/element_form_save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gaugeView" />

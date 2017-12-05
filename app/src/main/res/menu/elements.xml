@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/action_edit"
-        android:title="EDIT"
+        android:title="@string/menu_item_edit"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_reset"
-        android:title="RESET"
-        app:showAsAction="always" />
+        android:title="@string/menu_item_reset"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -33,7 +33,6 @@ import java.util.List;
 public class ElementsActivity extends AppCompatActivity {
 
 	private ElementsViewModel viewModel;
-	private View.OnClickListener onClickListener;
 	private int chosenType; //TODO make intDef
 	private ElementsAdapter elementsAdapter;
 
@@ -60,8 +59,7 @@ public class ElementsActivity extends AppCompatActivity {
 		setTitle(chosenType);
 
 
-
-		onClickListener = new View.OnClickListener() {
+		View.OnClickListener onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (view.getId() == R.id.fab) {
@@ -102,14 +100,14 @@ public class ElementsActivity extends AppCompatActivity {
 				createSingleChoiceDialog(R.string.dialog_choose_type, R.array.elements).show();
 				break;
 			case R.id.action_reset:
-				showMsg("Reset");
+				showMsg();
 				break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void showMsg(String msg) {
-		Toast toast = Toast.makeText(ElementsActivity.this, msg, Toast.LENGTH_SHORT);
+	private void showMsg() {
+		Toast toast = Toast.makeText(ElementsActivity.this, "Reset", Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
 		toast.show();
 	}
