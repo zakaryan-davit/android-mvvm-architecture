@@ -1,5 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
+import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
+import com.example.davit_zakaryan.mvvmapp.databinding.ItemElementBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +39,16 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-		View view = inflater.inflate(R.layout.item_element, parent, false);
-		return new ViewHolder(view);
+		LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+		ItemElementBinding elementBinding = DataBindingUtil
+				.inflate(layoutInflater, R.layout.item_element, parent, false);
+		return new ViewHolder(elementBinding);
 	}
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		Element element = elements.get(position);
-		holder.title.setText(element.name);
-		holder.subtitle.setText(element.shortDesc);
-		holder.level.setText(String.valueOf(element.level.get()));
+		holder.bind(element);
 	}
 
 	@Override
@@ -56,13 +58,16 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 	class ViewHolder extends RecyclerView.ViewHolder {
 
-		TextView title, subtitle, level;
+		private ItemElementBinding itemElementBinding;
 
-		ViewHolder(View itemView) {
-			super(itemView);
-			title = (TextView) itemView.findViewById(R.id.item_element_title_text);
-			subtitle = (TextView) itemView.findViewById(R.id.item_element_subtitle_text);
-			level = (TextView) itemView.findViewById(R.id.item_element_level_text);
+		ViewHolder(ItemElementBinding elementBinding) {
+			super(elementBinding.getRoot());
+			this.itemElementBinding = elementBinding;
+		}
+
+		void bind(@NonNull Element element) {
+			itemElementBinding.setElement(element);
+			itemElementBinding.executePendingBindings();
 		}
 	}
 }
