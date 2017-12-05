@@ -12,6 +12,7 @@ import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityDetailsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
+import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 /**
  * Created by Davit_Zakaryan on 11/22/2017.
@@ -26,7 +27,7 @@ public class ElementDetailsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.activity_details);
 
-		chosenType = getIntent().getIntExtra("chosen_type", 0);
+		chosenType = getIntent().getIntExtra(Constants.EXTRA_CHOSEN_TYPE, 0);
 		setTitle(chosenType);
 
 		Element element = App.getElementInstance();
