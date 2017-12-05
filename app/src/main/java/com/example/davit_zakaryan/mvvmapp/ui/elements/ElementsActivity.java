@@ -1,16 +1,13 @@
 package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,16 +17,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Toast;
 
-import com.example.customview.GaugeView;
 import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
+import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +35,7 @@ public class ElementsActivity extends AppCompatActivity {
 	private ElementsViewModel viewModel;
 	private View.OnClickListener onClickListener;
 	private int chosenType; //TODO make intDef
+	private ElementsAdapter elementsAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +48,18 @@ public class ElementsActivity extends AppCompatActivity {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
+		List<Element> elements = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			App.getElementInstance().level.set(i % 6);
+			elements.add(App.getElementInstance());
+		}
+
+		elementsAdapter = new ElementsAdapter(elements, chosenType);
+
 		// Set default title
 		setTitle(chosenType);
+
+
 
 		onClickListener = new View.OnClickListener() {
 			@Override
@@ -62,7 +69,7 @@ public class ElementsActivity extends AppCompatActivity {
 					startActivity(intent);
 				} else {
 					Intent intent = new Intent(ElementsActivity.this, ElementDetailsActivity.class);
-					intent.putExtra("chosen_type", chosenType);
+					intent.putExtra(Constants.EXTRA_CHOSEN_TYPE, chosenType);
 					startActivity(intent);
 				}
 
@@ -71,14 +78,6 @@ public class ElementsActivity extends AppCompatActivity {
 
 		RecyclerView recyclerView = findViewById(R.id.activity_elements_recycleView);
 		recyclerView.setLayoutManager(new LinearLayoutManager(ElementsActivity.this));
-
-		List<Element> elements = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			App.getElementInstance().level.set(i % 6);
-			elements.add(App.getElementInstance());
-		}
-
-		ElementsAdapter elementsAdapter = new ElementsAdapter(elements);
 		recyclerView.setAdapter(elementsAdapter);
 
 		//@SuppressLint("WrongViewCast") GradientDrawable shapeDrawable = (GradientDrawable) findViewById(R.id.item_element_level_text).getBackground();
@@ -153,5 +152,6 @@ public class ElementsActivity extends AppCompatActivity {
 				break;
 		}
 		super.setTitle(titleId);
+		elementsAdapter.setChosenType(chosenType);
 	}
 }
