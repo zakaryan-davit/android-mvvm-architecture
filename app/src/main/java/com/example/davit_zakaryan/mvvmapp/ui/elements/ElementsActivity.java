@@ -13,19 +13,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.example.customview.GaugeView;
 import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
+import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElementsActivity extends AppCompatActivity {
 
@@ -62,13 +69,20 @@ public class ElementsActivity extends AppCompatActivity {
 			}
 		};
 
-		findViewById(R.id.list_item1).setOnClickListener(onClickListener);
-		findViewById(R.id.list_item2).setOnClickListener(onClickListener);
-		findViewById(R.id.list_item3).setOnClickListener(onClickListener);
-		findViewById(R.id.list_item4).setOnClickListener(onClickListener);
+		RecyclerView recyclerView = findViewById(R.id.activity_elements_recycleView);
+		recyclerView.setLayoutManager(new LinearLayoutManager(ElementsActivity.this));
 
-		@SuppressLint("WrongViewCast") GradientDrawable shapeDrawable = (GradientDrawable) findViewById(R.id.element_form_level_text).getBackground();
-		shapeDrawable.setColor(GaugeView.getColorByLevel(App.getElementInstance().level.get() - 1, 10));
+		List<Element> elements = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			App.getElementInstance().level.set(i % 6);
+			elements.add(App.getElementInstance());
+		}
+
+		ElementsAdapter elementsAdapter = new ElementsAdapter(elements);
+		recyclerView.setAdapter(elementsAdapter);
+
+		//@SuppressLint("WrongViewCast") GradientDrawable shapeDrawable = (GradientDrawable) findViewById(R.id.item_element_level_text).getBackground();
+		//shapeDrawable.setColor(GaugeView.getColorByLevel(App.getElementInstance().level.get() - 1, 10));
 
 
 		FloatingActionButton fab = findViewById(R.id.fab);

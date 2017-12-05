@@ -27,6 +27,8 @@ public class App extends Application {
 			INSTANCE.url = "http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg";
 			INSTANCE.url = "https://i.neoseeker.com/ca/spellforce_2_dragon_storm_conceptart_RLzl6.jpg";
 			INSTANCE.level.set(1);
+			INSTANCE.name = "Simple name";
+			INSTANCE.shortDesc = "Short description";
 			INSTANCE.description = "";
 		}
 		return INSTANCE;
