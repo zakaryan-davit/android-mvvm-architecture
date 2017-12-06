@@ -38,6 +38,6 @@
             android:layout_margin="@dimen/fab_margin"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@drawable/ic_add_white_24px" />
     </android.support.constraint.ConstraintLayout>
 </layout>
