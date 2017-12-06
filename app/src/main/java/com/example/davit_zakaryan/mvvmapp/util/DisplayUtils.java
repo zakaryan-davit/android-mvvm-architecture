@@ -1,8 +1,6 @@
 package com.example.davit_zakaryan.mvvmapp.util;
 
-import android.app.Activity;
 import android.content.res.Resources;
-import android.graphics.Rect;
 
 /**
  * Created by Davit_Zakaryan on 12/1/2017.
