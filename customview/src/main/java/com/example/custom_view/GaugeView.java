@@ -2,6 +2,7 @@ package com.example.custom_view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -60,6 +61,8 @@ public class GaugeView extends View {
 	private Path path;
 	private float[] hsv = new float[3];
 	private Point p1, p2, p3;
+	private Bitmap cachedBitmap;
+	private boolean initialDrawingIsPerformed;
 
 
 	// ===========================================================
@@ -158,9 +161,7 @@ public class GaugeView extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		drawScale(canvas);
-
-		drawArrow(canvas);
+		drawWithCashingBitmapSolution(canvas);
 	}
 
 	// ===========================================================
@@ -177,6 +178,27 @@ public class GaugeView extends View {
 		p3 = new Point();
 		sweepAngle = (SCALE_WHOLE_ANGLE - SCALE_DIVIDER_ANGLE * (count - 1)) / count;
 		Log.d(LOG_TAG, "Sweep Angle of each = " + sweepAngle);
+	}
+
+	private void drawWithCashingBitmapSolution(Canvas canvas) {
+		if (!initialDrawingIsPerformed) {
+
+			this.cachedBitmap = Bitmap.createBitmap(getWidth(), getHeight(),
+					Bitmap.Config.ARGB_8888);
+			Canvas cacheCanvas = new Canvas(this.cachedBitmap);
+
+			// doInitialDrawing
+			drawScale(cacheCanvas);
+			drawArrow(cacheCanvas);
+
+			canvas.drawBitmap(this.cachedBitmap, 0, 0, new Paint());
+			initialDrawingIsPerformed = true;
+		} else {
+			canvas.drawBitmap(this.cachedBitmap, 0, 0, new Paint());
+
+			// doPartialRedraws;
+			drawArrow(canvas);
+		}
 	}
 
 	private void drawScale(Canvas canvas) {
