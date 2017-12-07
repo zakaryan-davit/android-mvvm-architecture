@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.davit_zakaryan.mvvmapp.App;
+import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityDetailsBinding;
@@ -28,7 +28,7 @@ public class ElementDetailsActivity extends BaseActivity {
 		int chosenType = getIntent().getIntExtra(Constants.EXTRA_CHOSEN_TYPE, 0);
 		setTitle(chosenType);
 
-		Element element = App.getElementInstance();
+		Element element = FakeData.getElementInstance();
 
 		ActivityDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 		binding.setElement(element);

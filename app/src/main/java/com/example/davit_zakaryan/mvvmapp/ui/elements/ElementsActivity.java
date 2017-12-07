@@ -19,16 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.davit_zakaryan.mvvmapp.App;
+import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElementsActivity extends AppCompatActivity {
 
@@ -47,13 +43,8 @@ public class ElementsActivity extends AppCompatActivity {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		List<Element> elements = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			App.getElementInstance().level.set(i % 6);
-			elements.add(App.getElementInstance());
-		}
+		elementsAdapter = new ElementsAdapter(FakeData.getElementList(), chosenType);
 
-		elementsAdapter = new ElementsAdapter(elements, chosenType);
 
 		// Set default title
 		setTitle(chosenType);
@@ -77,9 +68,6 @@ public class ElementsActivity extends AppCompatActivity {
 		RecyclerView recyclerView = findViewById(R.id.activity_elements_recycleView);
 		recyclerView.setLayoutManager(new LinearLayoutManager(ElementsActivity.this));
 		recyclerView.setAdapter(elementsAdapter);
-
-		//@SuppressLint("WrongViewCast") GradientDrawable shapeDrawable = (GradientDrawable) findViewById(R.id.item_element_level_text).getBackground();
-		//shapeDrawable.setColor(GaugeView.getColorByLevel(App.getElementInstance().level.get() - 1, 10));
 
 
 		FloatingActionButton fab = findViewById(R.id.fab);

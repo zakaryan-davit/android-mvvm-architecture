@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-import com.example.davit_zakaryan.mvvmapp.App;
+import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementFormBinding;
@@ -22,7 +22,7 @@ public class ElementFormActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Element element = App.getElementInstance();
+		Element element = FakeData.getElementInstance();
 
 		ActivityElementFormBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_element_form);
 		binding.setElement(element);
