@@ -11,6 +11,7 @@ project.ext {
     supportLibraryVersion = "26.1.0"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
+    hockeyAppVersion = "5.0.4"
 }
 
 android {
@@ -24,8 +25,26 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "f715b57a6cef4f9384bff1615b55c9cf"]
     }
+
+//    signingConfigs {
+//        ci {
+//            keyAlias "ci-key-alias"
+//            keyPassword System.getenv("CI_KEYSTORE_PASSWORD")
+//            storeFile "ci-key.keystore"
+//            storePassword System.getenv("CI_KEYSTORE_PASSWORD")
+//        }
+//    }
+
     buildTypes {
+//        debug_with_ci_keystore.initWith(buildTypes.debug)
+//        debug_with_ci_keystore {
+//            if (System.getenv("CI_KEYSTORE_PASSWORD")) {
+//                signingConfig signingConfigs.ci
+//            }
+//            minifyEnabled false
+//        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -55,6 +74,9 @@ dependencies {
 
     // Debug bridge Stetho
     implementation "com.facebook.stetho:stetho:$project.stethoVersion"
+
+    // HockeySDK
+    implementation "net.hockeyapp.android:HockeySDK:$project.hockeyAppVersion"
 
     // Custom View
     implementation project(":customview")
