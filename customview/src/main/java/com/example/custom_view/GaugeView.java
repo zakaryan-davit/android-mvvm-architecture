@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
@@ -164,6 +166,29 @@ public class GaugeView extends View {
 		drawWithCashingBitmapSolution(canvas);
 	}
 
+	@Nullable
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(superState);
+		savedState.levelState = this.level;
+		return savedState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		if (!(state instanceof SavedState)) {
+			super.onRestoreInstanceState(state);
+			return;
+		}
+
+		SavedState savedState = (SavedState) state;
+		super.onRestoreInstanceState(savedState.getSuperState());
+
+		this.level = savedState.levelState;
+	}
+
+
 	// ===========================================================
 	// Methods
 	// ===========================================================
@@ -249,10 +274,6 @@ public class GaugeView extends View {
 		canvas.drawCircle(centerX, centerY, ARROW_RADIUS, paint);
 	}
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
-
 	@ColorInt
 	public static int getColorByLevel(int level, int count) {
 		return getColorByLevel(level, count, null);
@@ -267,5 +288,41 @@ public class GaugeView extends View {
 		hsv[1] = 1;
 		hsv[2] = 1;
 		return Color.HSVToColor(hsv);
+	}
+
+
+	// ===========================================================
+	// Inner and Anonymous Classes
+	// ===========================================================
+
+	public static class SavedState extends BaseSavedState {
+		int levelState;
+
+		SavedState(Parcelable superState) {
+			super(superState);
+		}
+
+		private SavedState(Parcel in) {
+			super(in);
+			this.levelState = in.readInt();
+		}
+
+		@Override
+		public void writeToParcel(Parcel dest, int flags) {
+			super.writeToParcel(dest, flags);
+			dest.writeInt(this.levelState);
+		}
+
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+			@Override
+			public SavedState createFromParcel(Parcel source) {
+				return new SavedState(source);
+			}
+
+			@Override
+			public SavedState[] newArray(int size) {
+				return new SavedState[size];
+			}
+		};
 	}
 }
