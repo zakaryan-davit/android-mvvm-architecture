@@ -2,4 +2,5 @@
 <resources>
     <integer name="element_columns">2</integer>
     <dimen name="form_width">600dp</dimen>
+    <dimen name="element_item_height">64dp</dimen>
 </resources>
