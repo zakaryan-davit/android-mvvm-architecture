@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,7 +28,14 @@ public class ElementDetailsFragment extends BaseFragment {
 
 	public static String KEY_POSITION = "position";
 	private Element element;
+	private int chosenType;
 	private ElementDetailsViewModel viewModel;
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
 
 	@Nullable
 	@Override
@@ -35,7 +45,8 @@ public class ElementDetailsFragment extends BaseFragment {
 
 		FragmentElementDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_element_details, container, false);
 
-		int chosenType = 0;
+
+		chosenType = 0;
 		int selectedIndex = 0;
 		if (getArguments() != null) {
 			chosenType = getArguments().getInt(Constants.EXTRA_CHOSEN_TYPE);
@@ -58,6 +69,24 @@ public class ElementDetailsFragment extends BaseFragment {
 		}
 
 		return binding.getRoot();
+	}
+
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		if (chosenType == 2) {
+			inflater.inflate(R.menu.element_details, menu);
+		}
+		//super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_alarm:
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void setElement(int index) {

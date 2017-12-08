@@ -17,7 +17,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="wrap_content"
             android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,7 @@
             fresco:imageUrl="@{viewModel.element.url}"
             fresco:placeholderImage="@drawable/ic_launcher_background"
             fresco:placeholderImageScaleType="centerCrop"
+            fresco:viewAspectRatio="2"
             tools:background="@color/colorAccent" />
 
         <TextView
@@ -54,7 +55,7 @@
 
         <TextView
             android:id="@+id/activity_details_description_text"
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="66dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
