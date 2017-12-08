@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.elements.ElementsActivity"
+            android:name=".ui.base.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,19 +21,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.element_details.ElementDetailsActivity"
-            android:parentActivityName=".ui.elements.ElementsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsActivity" />
-        </activity>
-        <activity
             android:name=".ui.element_form.ElementFormActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsActivity" />
+                android:value="com.example.davit_zakaryan.mvvmapp.ui.base.HomeActivity" />
         </activity>
 
         <meta-data

@@ -27,9 +27,7 @@ import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
-import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
-import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 /**
  * Created by Davit_Zakaryan on 12/8/2017.
@@ -66,17 +64,14 @@ public class ElementsFragment extends BaseFragment {
 		elementsAdapter = new ElementsAdapter(FakeData.getElementList(), chosenType);
 
 		// Set default title
-		setTitle(chosenType);
+		//elementsAdapter.setChosenType(chosenType);
+		getActivity().setTitle(chosenType);
 
 		View.OnClickListener onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (view.getId() == R.id.fab) {
 					Intent intent = new Intent(getActivity(), ElementFormActivity.class);
-					startActivity(intent);
-				} else {
-					Intent intent = new Intent(getActivity(), ElementDetailsActivity.class);
-					intent.putExtra(Constants.EXTRA_CHOSEN_TYPE, chosenType);
 					startActivity(intent);
 				}
 
@@ -133,30 +128,11 @@ public class ElementsFragment extends BaseFragment {
 				.setPositiveButton(R.string.dialog_choose, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
-						setTitle(chosenType);
+						elementsAdapter.setChosenType(chosenType);
+						getActivity().setTitle(chosenType);
 					}
 				})
 				.setNegativeButton(R.string.dialog_cancel, null);
 		return builder.create();
-	}
-
-	public void setTitle(int chosenType) {
-		int titleId;
-		switch (chosenType) {
-			case 0:
-				titleId = R.string.snakes;
-				break;
-			case 1:
-				titleId = R.string.cards;
-				break;
-			case 2:
-				titleId = R.string.tasks;
-				break;
-			default:
-				titleId = R.string.snakes;
-				break;
-		}
-		getActivity().setTitle(titleId);
-		elementsAdapter.setChosenType(chosenType);
 	}
 }

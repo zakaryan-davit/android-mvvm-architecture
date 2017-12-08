@@ -1,7 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ItemElementBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
+import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsFragment;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 import java.util.ArrayList;
@@ -79,9 +79,11 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(v.getContext(), ElementDetailsActivity.class);
-			intent.putExtra(Constants.EXTRA_CHOSEN_TYPE, chosenType);
-			v.getContext().startActivity(intent);
+			Bundle bundle = new Bundle();
+			bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
+			ElementDetailsFragment fragment = new ElementDetailsFragment();
+			fragment.setArguments(bundle);
+			//TODO add fragment transaction
 		}
 	}
 }
