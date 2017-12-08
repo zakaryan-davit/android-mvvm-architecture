@@ -3,6 +3,7 @@ package com.example.davit_zakaryan.mvvmapp.ui.elements;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
@@ -25,6 +26,7 @@ import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
+import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
 /**
@@ -76,8 +78,13 @@ public class ElementsFragment extends BaseFragment {
 		};
 
 		RecyclerView recyclerView = view.findViewById(R.id.activity_elements_recycleView);
-		final int columns = getResources().getInteger(R.integer.element_columns);
-		recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columns));
+		final boolean hasTwoPanes = getResources().getBoolean(R.bool.hasTwoPanes);
+		int columnCount = 1;
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !hasTwoPanes) {
+			columnCount = 2;
+		}
+		recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columnCount));
+		elementsAdapter.setChangeListener((OnElementSelectionChangeListener) getActivity());
 		recyclerView.setAdapter(elementsAdapter);
 
 

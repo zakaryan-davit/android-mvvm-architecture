@@ -1,7 +1,6 @@
 package com.example.davit_zakaryan.mvvmapp.ui.elements;
 
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +10,7 @@ import android.view.ViewGroup;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.ItemElementBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsFragment;
-import com.example.davit_zakaryan.mvvmapp.util.Constants;
+import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +25,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 	// Fields
 	// ===========================================================
 
+	private OnElementSelectionChangeListener changeListener;
 	private List<Element> elements = new ArrayList<>();
 	private int chosenType;
 
@@ -37,6 +36,10 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 	public void setChosenType(int chosenType) {
 		this.chosenType = chosenType;
+	}
+
+	public void setChangeListener(OnElementSelectionChangeListener changeListener) {
+		this.changeListener = changeListener;
 	}
 
 	// ===========================================================
@@ -79,10 +82,13 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 		@Override
 		public void onClick(View v) {
-			Bundle bundle = new Bundle();
-			bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
-			ElementDetailsFragment fragment = new ElementDetailsFragment();
-			fragment.setArguments(bundle);
+
+			changeListener.onSelectionChanged(getAdapterPosition());;
+
+//			Bundle bundle = new Bundle();
+//			bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
+//			ElementDetailsFragment fragment = new ElementDetailsFragment();
+//			fragment.setArguments(bundle);
 			//TODO add fragment transaction
 		}
 	}

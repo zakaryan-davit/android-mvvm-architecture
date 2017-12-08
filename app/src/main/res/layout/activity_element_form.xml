@@ -166,7 +166,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 app:gv_level="@{element.level}"
-                app:gv_scalesCount="5000"
+                app:gv_scalesCount="10"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

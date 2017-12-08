@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="element"
-            type="com.example.davit_zakaryan.mvvmapp.data.model.Element" />
+            name="viewModel"
+            type="com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             fresco:actualImageScaleType="focusCrop"
-            fresco:imageUrl="@{element.url}"
+            fresco:imageUrl="@{viewModel.element.url}"
             fresco:placeholderImage="@drawable/ic_launcher_background"
             fresco:placeholderImageScaleType="centerCrop"
             tools:background="@color/colorAccent" />
@@ -34,7 +34,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
-            android:text="@{element.shortDesc}"
+            android:text="@{viewModel.element.shortDesc}"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:layout_height="34dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
-            android:text="@{element.name}"
+            android:text="@{viewModel.element.name}"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/activity_details_short_desc_text"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
             android:layout_height="66dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{element.description}"
+            android:text="@{viewModel.element.description}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             tools:text="Long description" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:gv_level="@{element.level}"
+            app:gv_level="@{viewModel.element.level}"
             app:gv_scalesCount="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_details_description_text" />

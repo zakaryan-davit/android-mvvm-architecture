@@ -2,12 +2,14 @@ package com.example.davit_zakaryan.mvvmapp.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
 import com.example.davit_zakaryan.mvvmapp.R;
+import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsFragment;
 import com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsFragment;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements OnElementSelectionChangeListener {
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,5 +53,32 @@ public class HomeActivity extends BaseActivity {
 				break;
 		}
 		super.setTitle(titleId);
+	}
+
+	@Override
+	public void onSelectionChanged(int index) {
+		ElementDetailsFragment detailsFragment = (ElementDetailsFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.element_details_fragment);
+
+		System.out.println("index = " + index);
+
+		if (detailsFragment != null) {
+			// If details is available, we are in two pane layout
+			// so we call the method in ElementDetailsFragment to update its content
+			detailsFragment.setElement(index);
+		} else {
+			ElementDetailsFragment newDetailsFragment = new ElementDetailsFragment();
+			Bundle args = new Bundle();
+
+			args.putInt(ElementDetailsFragment.KEY_POSITION, index);
+			newDetailsFragment.setArguments(args);
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+			// Replace whatever is in the fragment_container view with this fragment,
+			// and add the transaction to the backStack so the User can navigate back
+			fragmentTransaction.replace(R.id.fragment_container, newDetailsFragment);
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commit();
+		}
 	}
 }
