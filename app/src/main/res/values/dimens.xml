@@ -4,4 +4,7 @@
     <dimen name="spacing_medium">8dp</dimen>
     <dimen name="text_subhead">14sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <integer name="element_columns">1</integer>
+    <bool name="bool_has_two_panes">false</bool>
 </resources>
