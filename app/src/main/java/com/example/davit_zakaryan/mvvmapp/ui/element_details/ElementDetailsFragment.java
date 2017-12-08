@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +28,11 @@ public class ElementDetailsFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 		FragmentElementDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_element_details, container, false);
-		((BaseActivity) getActivity()).setSupportActionBar((Toolbar) binding.toolbar);
 
-
-		int chosenType = getArguments().getInt(Constants.EXTRA_CHOSEN_TYPE, 0);
+		int chosenType = 0;
+		if (getArguments() != null) {
+			chosenType = getArguments().getInt(Constants.EXTRA_CHOSEN_TYPE);
+		}
 		getActivity().setTitle(chosenType);
 
 		Element element = FakeData.getElementInstance();

@@ -12,7 +12,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
@@ -52,7 +50,6 @@ public class ElementsFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
 		FragmentElementsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_elements, container, false);
-		((BaseActivity) getActivity()).setSupportActionBar((Toolbar) binding.toolbar);
 		return binding.getRoot();
 	}
 

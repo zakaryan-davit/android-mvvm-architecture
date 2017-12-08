@@ -2,6 +2,7 @@ package com.example.davit_zakaryan.mvvmapp.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsFragment;
@@ -12,6 +13,9 @@ public class HomeActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
 		// Check whether the Activity is using the layout version with the fragment_container FrameLayout and if so we must add the first fragment
 		if (findViewById(R.id.fragment_container) != null) {
@@ -46,6 +50,6 @@ public class HomeActivity extends BaseActivity {
 				titleId = R.string.snakes;
 				break;
 		}
-		setTitle(titleId);
+		super.setTitle(titleId);
 	}
 }

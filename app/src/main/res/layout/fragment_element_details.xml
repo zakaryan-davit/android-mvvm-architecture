@@ -14,18 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/layout_toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:layout_marginTop="?attr/actionBarSize"
             android:contentDescription="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
