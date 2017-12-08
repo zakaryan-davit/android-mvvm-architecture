@@ -4,6 +4,7 @@ import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Davit_Zakaryan on 12/6/2017.
@@ -32,29 +33,30 @@ public class FakeData {
 		if (ELEMENT_LIST == null) {
 			ELEMENT_LIST = new ArrayList<>();
 			Element element;
-			for (int i = 0; i < 10; i++) {
+			Random rand = new Random();
+
+			for (int i = 0; i < 100; i++) {
+				int randomLevel = rand.nextInt(10) + 1;
 				element = new Element();
 				switch (i % 3) {
 					case 0:
 						element.url = "http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg";
-						element.level.set(2);
 						element.name = "Tiger";
 						element.shortDesc = "Short description";
 						element.description = tigerDescription;
 						break;
 					case 1:
 						element.url = "https://i.neoseeker.com/ca/spellforce_2_dragon_storm_conceptart_RLzl6.jpg";
-						element.level.set(5);
 						element.name = "Dragon";
 						element.description = dragonDescription;
 						break;
 					case 2:
 						element.url = "https://puxccbo05z-flywheel.netdna-ssl.com/wp-content/uploads/2015/02/black-mamba-1.jpg";
-						element.level.set(9);
 						element.name = "Black mamba";
 						element.description = mambaDescription;
 						break;
 				}
+				element.level.set(randomLevel);
 				ELEMENT_LIST.add(element);
 			}
 		}

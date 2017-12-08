@@ -22,6 +22,6 @@ public class BindingAdapters {
 	@BindingAdapter({"level_background"})
 	public static void setBackgroundByLevel(TextView textView, int level) {
 		GradientDrawable shapeDrawable = (GradientDrawable) textView.getBackground();
-		shapeDrawable.setColor(GaugeView.getColorByLevel(level, 10));
+		shapeDrawable.setColor(GaugeView.getColorByLevel(level - 1, 10)); //Level -1 because colors begin from 0
 	}
 }
