@@ -1,5 +1,6 @@
 package com.example.custom_view;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 
 /**
  * Created by Davit_Zakaryan on 12/1/2017.
@@ -66,6 +68,13 @@ public class GaugeView extends View {
 	private Bitmap cachedBitmap;
 	private boolean initialDrawingIsPerformed;
 
+	// Animation fields
+	private float animLevel;
+	private boolean animated = true;
+	private long animationDuration = 1000l; //default duration
+	private ValueAnimator animation;
+	int previousValue;
+
 
 	// ===========================================================
 	// Constructors
@@ -102,10 +111,34 @@ public class GaugeView extends View {
 	}
 
 	public void setLevel(int level) {
-		if (level <= count) {
-			this.level = level;
-			invalidate();
+		if (level > count) {
+			return;
 		}
+		this.level = level;
+
+		if (animation != null) {
+			animation.cancel();
+		}
+
+		if (animated) {
+			animation = ValueAnimator.ofFloat(previousValue, level);
+			animation.setDuration(animationDuration);
+			animation.setInterpolator(new OvershootInterpolator());
+			animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator valueAnimator) {
+					//valueToDraw = (float) valueAnimator.getAnimatedValue();
+					animLevel = (float) valueAnimator.getAnimatedValue();
+					invalidate();
+				}
+			});
+			animation.start();
+		} else {
+			animLevel = this.level;
+		}
+
+		previousValue = level;
+		invalidate();
 	}
 
 	public int getCount() {
@@ -115,6 +148,14 @@ public class GaugeView extends View {
 	public void setCount(int count) {
 		this.count = count;
 		invalidate();
+	}
+
+	public void setAnimated(boolean animated) {
+		this.animated = animated;
+	}
+
+	public void setAnimationDuration(long animationDuration) {
+		this.animationDuration = animationDuration;
 	}
 
 
@@ -269,7 +310,7 @@ public class GaugeView extends View {
 		path.lineTo(p3.x, p3.y);
 		path.close();
 
-		canvas.rotate((level - 1) * (sweepAngle + SCALE_DIVIDER_ANGLE) + sweepAngle / 2, centerX, centerY);
+		canvas.rotate((animLevel - 1) * (sweepAngle + SCALE_DIVIDER_ANGLE) + sweepAngle / 2, centerX, centerY);
 		canvas.drawPath(path, paint);
 
 		paint.setColor(Color.BLACK);
