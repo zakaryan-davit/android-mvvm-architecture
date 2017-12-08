@@ -3,83 +3,102 @@ package com.example.davit_zakaryan.mvvmapp.ui.elements;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementsBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.element_details.ElementDetailsActivity;
+import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
+import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
+import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
-import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
-public class ElementsActivity extends AppCompatActivity {
+/**
+ * Created by Davit_Zakaryan on 12/8/2017.
+ */
+
+public class ElementsFragment extends BaseFragment {
 
 	private ElementsViewModel viewModel;
 	private int chosenType; //TODO make intDef
 	private ElementsAdapter elementsAdapter;
 
+
+	public ElementsFragment() {
+	}
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.activity_main);
+		setHasOptionsMenu(true);
+	}
 
-		ActivityElementsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_elements);
-		binding.setViewModel(viewModel);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
+		FragmentElementsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_elements, container, false);
+		return binding.getRoot();
+	}
 
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
 
 		elementsAdapter = new ElementsAdapter(FakeData.getElementList(), chosenType);
 
-
 		// Set default title
-		setTitle(chosenType);
-
+		//elementsAdapter.setChosenType(chosenType);
+		getActivity().setTitle(chosenType);
 
 		View.OnClickListener onClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (view.getId() == R.id.fab) {
-					Intent intent = new Intent(ElementsActivity.this, ElementFormActivity.class);
-					startActivity(intent);
-				} else {
-					Intent intent = new Intent(ElementsActivity.this, ElementDetailsActivity.class);
-					intent.putExtra(Constants.EXTRA_CHOSEN_TYPE, chosenType);
+					Intent intent = new Intent(getActivity(), ElementFormActivity.class);
 					startActivity(intent);
 				}
 
 			}
 		};
 
-		RecyclerView recyclerView = findViewById(R.id.activity_elements_recycleView);
-		recyclerView.setLayoutManager(new LinearLayoutManager(ElementsActivity.this));
+		RecyclerView recyclerView = view.findViewById(R.id.activity_elements_recycleView);
+		final boolean hasTwoPanes = getResources().getBoolean(R.bool.hasTwoPanes);
+		int columnCount = 1;
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !hasTwoPanes) {
+			columnCount = 2;
+		}
+		recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), columnCount));
+		elementsAdapter.setChangeListener((OnElementSelectionChangeListener) getActivity());
 		recyclerView.setAdapter(elementsAdapter);
 
 
-		FloatingActionButton fab = findViewById(R.id.fab);
+		FloatingActionButton fab = view.findViewById(R.id.fab);
 		fab.setOnClickListener(onClickListener);
-
 	}
+
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.elements, menu);
-		return true;
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.elements, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -95,14 +114,14 @@ public class ElementsActivity extends AppCompatActivity {
 	}
 
 	private void showMsg() {
-		Toast toast = Toast.makeText(ElementsActivity.this, "Reset", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getActivity(), "Reset", Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
 		toast.show();
 	}
 
 	private Dialog createSingleChoiceDialog(@StringRes int titleRes, @ArrayRes int choiceItems) {
 		//Initialize the Alert Dialog
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(titleRes)
 				.setSingleChoiceItems(choiceItems, chosenType, new DialogInterface.OnClickListener() {
 					@Override
@@ -113,31 +132,11 @@ public class ElementsActivity extends AppCompatActivity {
 				.setPositiveButton(R.string.dialog_choose, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialogInterface, int i) {
-						setTitle(chosenType);
+						elementsAdapter.setChosenType(chosenType);
+						getActivity().setTitle(chosenType);
 					}
 				})
 				.setNegativeButton(R.string.dialog_cancel, null);
 		return builder.create();
-	}
-
-	@Override
-	public void setTitle(int chosenType) {
-		int titleId;
-		switch (chosenType) {
-			case 0:
-				titleId = R.string.snakes;
-				break;
-			case 1:
-				titleId = R.string.cards;
-				break;
-			case 2:
-				titleId = R.string.tasks;
-				break;
-			default:
-				titleId = R.string.snakes;
-				break;
-		}
-		super.setTitle(titleId);
-		elementsAdapter.setChosenType(chosenType);
 	}
 }

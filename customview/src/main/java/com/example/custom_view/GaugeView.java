@@ -214,7 +214,7 @@ public class GaugeView extends View {
 
 			// doInitialDrawing
 			drawScale(cacheCanvas);
-			drawArrow(cacheCanvas);
+			//drawArrow(cacheCanvas);
 
 			canvas.drawBitmap(this.cachedBitmap, 0, 0, new Paint());
 			initialDrawingIsPerformed = true;
@@ -222,8 +222,10 @@ public class GaugeView extends View {
 			canvas.drawBitmap(this.cachedBitmap, 0, 0, new Paint());
 
 			// doPartialRedraws;
-			drawArrow(canvas);
+			//drawArrow(canvas);
 		}
+
+		drawArrow(canvas);
 	}
 
 	private void drawScale(Canvas canvas) {
