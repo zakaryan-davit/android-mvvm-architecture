@@ -11,179 +11,192 @@
             type="com.example.davit_zakaryan.mvvmapp.data.model.Element" />
     </data>
 
-    <ScrollView
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/layout_toolbar"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/element_form_title_input_layout"
-                android:layout_width="match_parent"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="@dimen/form_width"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/white"
+                android:padding="@dimen/spacing_medium">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/element_form_title_edit_text"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/element_form_title_input_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/element_form_name"
-                    android:text="@{element.name}" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_medium"
+                    android:layout_marginStart="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/element_form_short_desc_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/element_form_title_input_layout">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/element_form_title_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/element_form_name"
+                        android:text="@{element.name}" />
+                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/element_form_short_desc_edit_text"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/element_form_short_desc_input_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/element_form_short_description"
-                    android:text="@{element.shortDesc}" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/element_form_title_input_layout">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/element_form_description_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/element_form_short_desc_input_layout">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/element_form_short_desc_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/element_form_short_description"
+                        android:text="@{element.shortDesc}" />
+                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/element_form_description_edit_text"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/element_form_description_input_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/element_form_description"
-                    android:text="@{element.description}" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/element_form_short_desc_input_layout">
 
-            <TextView
-                android:id="@+id/element_form_level_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
-                android:labelFor="@id/element_form_level_edit_text"
-                android:text="@string/element_form_level"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/element_form_description_input_layout" />
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/element_form_description_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/element_form_description"
+                        android:text="@{element.description}" />
+                </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/button_minus"
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:onClick="@{() -> element.decrementLevel()}"
-                android:text="@string/element_form_decrement"
-                app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
-                app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/element_form_level_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="24dp"
+                    android:labelFor="@id/element_form_level_edit_text"
+                    android:text="@string/element_form_level"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/element_form_description_input_layout" />
 
-            <EditText
-                android:id="@+id/element_form_level_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:ems="2"
-                android:enabled="false"
-                android:gravity="center_horizontal"
-                android:inputType="number"
-                android:singleLine="true"
-                android:text="@{String.valueOf(element.level)}"
-                app:layout_constraintStart_toEndOf="@+id/button_minus"
-                app:layout_constraintTop_toBottomOf="@+id/element_form_level_text" />
+                <Button
+                    android:id="@+id/button_minus"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> element.decrementLevel()}"
+                    android:text="@string/element_form_decrement"
+                    app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/button_plus"
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:onClick="@{() -> element.incrementLevel()}"
-                android:text="@string/element_form_increment"
-                app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
-                app:layout_constraintStart_toEndOf="@+id/element_form_level_edit_text" />
+                <EditText
+                    android:id="@+id/element_form_level_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:ems="2"
+                    android:enabled="false"
+                    android:gravity="center_horizontal"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="@{String.valueOf(element.level)}"
+                    app:layout_constraintStart_toEndOf="@+id/button_minus"
+                    app:layout_constraintTop_toBottomOf="@+id/element_form_level_text" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/element_form_background_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/element_form_level_edit_text" />
+                <Button
+                    android:id="@+id/button_plus"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> element.incrementLevel()}"
+                    android:text="@string/element_form_increment"
+                    app:layout_constraintBottom_toBottomOf="@+id/element_form_level_edit_text"
+                    app:layout_constraintStart_toEndOf="@+id/element_form_level_edit_text" />
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/imageView2"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                fresco:actualImageScaleType="focusCrop"
-                fresco:imageUrl="@{element.url}"
-                tools:background="@mipmap/ic_launcher" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/element_form_background_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/element_form_level_edit_text" />
 
-            <com.example.custom_view.GaugeView
-                android:id="@+id/gaugeView"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:gv_level="@{element.level}"
-                app:gv_scalesCount="10"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imageView2"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    fresco:actualImageScaleType="focusCrop"
+                    fresco:imageUrl="@{element.url}"
+                    tools:background="@mipmap/ic_launcher" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/element_form_save"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gaugeView" />
+                <com.example.custom_view.GaugeView
+                    android:id="@+id/gaugeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:gv_level="@{element.level}"
+                    app:gv_scalesCount="10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/element_form_save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gaugeView" />
 
 
-        </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
 
-    </ScrollView>
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+
 </layout>
