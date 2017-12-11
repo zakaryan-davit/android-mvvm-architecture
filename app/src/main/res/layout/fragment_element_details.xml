@@ -24,8 +24,6 @@
             app:layout_constraintTop_toTopOf="parent"
             fresco:actualImageScaleType="focusCrop"
             fresco:imageUrl="@{viewModel.element.url}"
-            fresco:placeholderImage="@drawable/ic_launcher_background"
-            fresco:placeholderImageScaleType="centerCrop"
             fresco:viewAspectRatio="2"
             tools:background="@color/colorAccent" />
 
