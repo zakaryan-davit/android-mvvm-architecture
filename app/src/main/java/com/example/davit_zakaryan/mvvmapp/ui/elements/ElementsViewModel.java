@@ -7,4 +7,16 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
  */
 
 public class ElementsViewModel implements BaseViewModel {
+
+	public int getSimpleInteger() {
+		return 15;
+	}
+
+	public void testing(int i) {
+
+	}
+
+	public void someMethod(String s) {
+
+	}
 }
