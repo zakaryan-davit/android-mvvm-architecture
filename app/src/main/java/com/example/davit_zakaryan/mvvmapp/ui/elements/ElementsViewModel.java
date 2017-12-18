@@ -19,4 +19,8 @@ public class ElementsViewModel implements BaseViewModel {
 	public void someMethod(String s) {
 
 	}
+
+	public void someMethod2(){
+
+	}
 }

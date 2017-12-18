@@ -8,6 +8,7 @@ project.ext {
     buildToolsVersion = '26.0.2'
 
     // App dependencies
+    daggerVersion = "2.11"
     supportLibraryVersion = "26.1.0"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
@@ -26,6 +27,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "f715b57a6cef4f9384bff1615b55c9cf"]
+    }
+
+//    testOptions{
+//        unitTests.all {
+//            testLogging {
+//                showStandartStreams = true
+//            }
+//        }
+//    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            showStandardStreams = true
+        }
     }
 
 //    signingConfigs {
@@ -67,10 +83,21 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Optional -- Mockito framework
-    testCompile 'org.mockito:mockito-core:2.7.22'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
 
-    //androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.1') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+
+
+    // Dagger 2 core
+    annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    implementation "com.google.dagger:dagger:$project.daggerVersion"
 
     // Image loading library Fresco
     implementation "com.facebook.fresco:fresco:$project.frescoVersion"

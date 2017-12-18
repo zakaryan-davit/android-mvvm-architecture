@@ -112,7 +112,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/element_form_description_input_layout" />
 
                 <Button
-                    android:id="@+id/button_minus"
+                    android:id="@+id/element_form_level_decrement_button"
                     android:layout_width="32dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -133,11 +133,11 @@
                     android:inputType="number"
                     android:singleLine="true"
                     android:text="@{String.valueOf(element.level)}"
-                    app:layout_constraintStart_toEndOf="@+id/button_minus"
+                    app:layout_constraintStart_toEndOf="@+id/element_form_level_decrement_button"
                     app:layout_constraintTop_toBottomOf="@+id/element_form_level_text" />
 
                 <Button
-                    android:id="@+id/button_plus"
+                    android:id="@+id/element_form_level_increment_button"
                     android:layout_width="32dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
