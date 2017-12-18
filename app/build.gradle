@@ -8,8 +8,10 @@ project.ext {
     buildToolsVersion = '26.0.2'
 
     // App dependencies
-    daggerVersion = "2.11"
     supportLibraryVersion = "26.1.0"
+    daggerVersion = "2.11"
+    retrofitVersion = "2.1.0"
+    okHttpVersion = "3.4.1"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
     hockeyAppVersion = "5.0.4"
@@ -96,8 +98,19 @@ dependencies {
 
 
     // Dagger 2 core
-    annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
     implementation "com.google.dagger:dagger:$project.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    //provided 'javax.annotation:jsr250-api:1.0'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+
+    // GSON Converter
+    implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
+
+    // OkHttp Logging Interceptor
+    implementation "com.squareup.okhttp3:okhttp:$project.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$project.okHttpVersion"
 
     // Image loading library Fresco
     implementation "com.facebook.fresco:fresco:$project.frescoVersion"
