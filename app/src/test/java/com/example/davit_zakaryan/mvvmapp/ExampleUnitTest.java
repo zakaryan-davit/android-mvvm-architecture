@@ -1,5 +1,6 @@
 package com.example.davit_zakaryan.mvvmapp;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,6 +32,7 @@ public class ExampleUnitTest {
 	}
 
 	@Test
+	@Ignore("only for fail testing")
 	public void addition_isNotCorrect() throws Exception {
 		assertEquals("Numbers isn't equals!", 5, 2 + 2);
 	}
