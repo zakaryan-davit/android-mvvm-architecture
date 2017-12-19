@@ -9,21 +9,21 @@ import android.view.View;
 
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
-/**
- * Created by Davit_Zakaryan on 11/23/2017.
- */
+import java.util.List;
+
 
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	private IRepository elementsRepository;
 	private Context context;
-	ElementsAdapter elementsAdapter;
+	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 
 	ElementsViewModel(IRepository elementsRepository, Context context) {
@@ -33,7 +33,12 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	@Override
 	public void onStart() {
-		elementsRepository.getElements();
+		elementsRepository.getElements(new IRepository.LoadElementsCallback() {
+			@Override
+			public void onElementsLoaded(List<ItemsResponse> elements) {
+				elementsAdapter.setElements(elements);
+			}
+		});
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 		context.startActivity(intent);
 	}
 
-	public void setChosenType(int chosenType){
+	public void setChosenType(int chosenType) {
 		elementsAdapter.setChosenType(chosenType);
 	}
 
@@ -79,15 +84,9 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	}
 
 	public void testing(int i) {
-
 	}
 
 	public void someMethod(String s) {
-
-	}
-
-	public void someMethod2() {
-
 	}
 	////////////////////////////////////
 }

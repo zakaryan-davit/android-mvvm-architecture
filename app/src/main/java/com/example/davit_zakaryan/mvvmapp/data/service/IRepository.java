@@ -1,9 +1,19 @@
 package com.example.davit_zakaryan.mvvmapp.data.service;
 
-/**
- * Created by Davit_Zakaryan on 12/19/2017.
- */
+import android.support.annotation.NonNull;
+
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
+
+import java.util.List;
+
 public interface IRepository {
 
-	void getElements();
+	interface LoadElementsCallback {
+
+		void onElementsLoaded(List<ItemsResponse> posts);
+	}
+
+	void getElements(@NonNull LoadElementsCallback callback, boolean loadMore, boolean forceUpdate);
+
+	void getElements(@NonNull LoadElementsCallback callback);
 }

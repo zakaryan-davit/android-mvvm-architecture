@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
 import com.example.davit_zakaryan.mvvmapp.databinding.ItemElementBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 
@@ -44,6 +45,19 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 
 	public void setChangeListener(OnElementSelectionChangeListener changeListener) {
 		this.changeListener = changeListener;
+	}
+
+	public void setElements(List<ItemsResponse> elements) {
+		this.elements = new ArrayList<>();
+		for (ItemsResponse item : elements) {
+			Element element = new Element();
+			element.level.set(item.level);
+			element.description = item.longDesc;
+			element.name = item.title;
+			element.id = item.id;
+			this.elements.add(element);
+		}
+		notifyDataSetChanged();
 	}
 
 	// ===========================================================
