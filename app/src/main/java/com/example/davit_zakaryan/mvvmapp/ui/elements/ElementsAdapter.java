@@ -34,6 +34,10 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 		this.chosenType = chosenType;
 	}
 
+	public ElementsAdapter(List<Element> elements) {
+		this.elements = elements;
+	}
+
 	public void setChosenType(int chosenType) {
 		this.chosenType = chosenType;
 	}
