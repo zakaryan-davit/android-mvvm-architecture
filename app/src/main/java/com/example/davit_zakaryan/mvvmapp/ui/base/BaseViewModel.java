@@ -5,4 +5,8 @@ package com.example.davit_zakaryan.mvvmapp.ui.base;
  */
 
 public interface BaseViewModel {
+
+	void onStart();
+
+	void onStop();
 }

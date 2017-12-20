@@ -11,7 +11,10 @@ project.ext {
     supportLibraryVersion = "26.1.0"
     daggerVersion = "2.11"
     retrofitVersion = "2.1.0"
+    rxJavaAdapterVersion = "2.3.0"
     okHttpVersion = "3.4.1"
+    rxJavaVersion = "2.1.7"
+    rxAndroidVersion = "2.0.1"
     frescoVersion = "1.5.0"
     stethoVersion = "1.5.0"
     hockeyAppVersion = "5.0.4"
@@ -96,7 +99,6 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 
-
     // Dagger 2 core
     implementation "com.google.dagger:dagger:$project.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
@@ -105,12 +107,19 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
 
+    // An Adapter for adapting RxJava 2 types.
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$project.rxJavaAdapterVersion"
+
     // GSON Converter
     implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
 
     // OkHttp Logging Interceptor
     implementation "com.squareup.okhttp3:okhttp:$project.okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$project.okHttpVersion"
+
+    // ReactiveX
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
 
     // Image loading library Fresco
     implementation "com.facebook.fresco:fresco:$project.frescoVersion"

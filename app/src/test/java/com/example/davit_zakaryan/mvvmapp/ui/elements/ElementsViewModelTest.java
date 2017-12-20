@@ -37,7 +37,7 @@ public class ElementsViewModelTest {
 		//setupContext();
 
 		// Get a reference to the class under test
-		elementsViewModel = new ElementsViewModel();
+		//elementsViewModel = new ElementsViewModel();
 
 		// We initialise the Elements
 		//elements =

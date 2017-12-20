@@ -20,4 +20,14 @@ public class ElementDetailsViewModel extends BaseObservable implements BaseViewM
 	public Element getElement() {
 		return element;
 	}
+
+	@Override
+	public void onStart() {
+
+	}
+
+	@Override
+	public void onStop() {
+
+	}
 }
