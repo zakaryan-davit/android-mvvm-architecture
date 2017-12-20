@@ -21,6 +21,7 @@ public class BindingAdapters {
 		gaugeView.setLevel(level);
 	}
 
+	// TODO this solution @BindingMethod(type = TextView.class, attribute = "level_background", method = "setBackgroundByLevel")
 	@BindingAdapter({"level_background"})
 	public static void setBackgroundByLevel(TextView textView, int level) {
 		GradientDrawable shapeDrawable = (GradientDrawable) textView.getBackground();

@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
@@ -35,7 +35,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	public void onStart() {
 		elementsRepository.getElements(new IRepository.LoadElementsCallback() {
 			@Override
-			public void onElementsLoaded(List<ItemsResponse> elements) {
+			public void onElementsLoaded(List<ItemModel> elements) {
 				elementsAdapter.setElements(elements);
 			}
 		});

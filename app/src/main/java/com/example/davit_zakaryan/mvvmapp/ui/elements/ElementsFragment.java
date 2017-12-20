@@ -35,7 +35,7 @@ public class ElementsFragment extends BaseFragment {
 		setHasOptionsMenu(true);
 
 		// ViewModel creation
-		IRepository repository = new ElementsRepository();
+		IRepository repository = new RepositoryImpl();
 		elementsViewModel = new ElementsViewModel(repository, getActivity());
 	}
 
