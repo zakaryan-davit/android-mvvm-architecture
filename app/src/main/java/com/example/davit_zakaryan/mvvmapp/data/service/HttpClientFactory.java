@@ -1,6 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.data.service;
 
 import com.example.davit_zakaryan.mvvmapp.BuildConfig;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ public class HttpClientFactory {
 		if (BuildConfig.DEBUG) {
 			HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+			httpClientBuilder.networkInterceptors().add(new StethoInterceptor());
 			httpClientBuilder.addInterceptor(loggingInterceptor);
 		}
 

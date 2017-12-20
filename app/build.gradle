@@ -126,6 +126,7 @@ dependencies {
 
     // Debug bridge Stetho
     implementation "com.facebook.stetho:stetho:$project.stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$project.stethoVersion"
 
     // HockeySDK
     implementation "net.hockeyapp.android:HockeySDK:$project.hockeyAppVersion"
