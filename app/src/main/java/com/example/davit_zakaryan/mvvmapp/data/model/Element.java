@@ -1,20 +1,20 @@
 package com.example.davit_zakaryan.mvvmapp.data.model;
 
-import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 /**
  * Created by Davit_Zakaryan on 11/22/2017.
  */
 
-public class Element extends BaseObservable {
-	public String id;
-	//public int level;
+public class Element {
+
+	public ObservableField<String> id;
 	public ObservableInt level = new ObservableInt();
-	public String name;
-	public String shortDesc;
-	public String description;
-	public String url;
+	public ObservableField<String> name;
+	public ObservableField<String> shortDesc;
+	public ObservableField<String> description;
+	public ObservableField<String> url;
 
 	public void incrementLevel() {
 		if (level.get() < 10) {
