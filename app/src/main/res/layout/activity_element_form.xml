@@ -56,7 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/element_form_name"
-                        android:text="@{viewModel.element.name}" />
+                        android:text="@={viewModel.element.name}" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/element_form_short_description"
-                        android:text="@{viewModel.element.shortDesc}" />
+                        android:text="@={viewModel.element.shortDesc}" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -96,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/element_form_description"
-                        android:text="@{viewModel.element.description}" />
+                        android:text="@={viewModel.element.description}" />
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
@@ -185,7 +185,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
-                    android:onClick="@{viewModel::onClickButtonSave}"
+                    android:onClick="@{()->viewModel.onClickButtonSave(viewModel.element)}"
                     android:text="@string/element_form_save"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
