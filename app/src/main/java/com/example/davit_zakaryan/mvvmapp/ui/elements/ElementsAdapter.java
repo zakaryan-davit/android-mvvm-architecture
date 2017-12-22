@@ -98,7 +98,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 		@Override
 		public void onClick(View v) {
 
-			changeListener.onSelectionChanged(getAdapterPosition());
+			//changeListener.onSelectionChanged(getAdapterPosition());
 
 //			Bundle bundle = new Bundle();
 //			bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);

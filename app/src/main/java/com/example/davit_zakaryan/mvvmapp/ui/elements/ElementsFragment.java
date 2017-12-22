@@ -32,11 +32,13 @@ public class ElementsFragment extends BaseFragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		setHasOptionsMenu(true);
 
 		// ViewModel creation
 		IRepository repository = new RepositoryImpl();
 		elementsViewModel = new ElementsViewModel(repository, getActivity());
+		elementsViewModel.onStart();
 	}
 
 	@Override
@@ -56,7 +58,6 @@ public class ElementsFragment extends BaseFragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		elementsViewModel.onStart();
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.data.service.ServiceFactory;
 
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -23,27 +24,11 @@ public class RepositoryImpl implements IRepository {
 	}
 
 	@Override
-	public void getElements(@NonNull final LoadElementsCallback callback) {
-		ServiceFactory.getAppService()
+	public Single<ListResponse<ItemModel>> getElements() {
+		return ServiceFactory.getAppService()
 				.getItems()
 				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new DefaultObserver<ListResponse<ItemModel>>() {
-					@Override
-					public void onNext(ListResponse<ItemModel> itemsResponseListResponse) {
-						callback.onElementsLoaded(itemsResponseListResponse.data);
-					}
-
-					@Override
-					public void onError(Throwable e) {
-
-					}
-
-					@Override
-					public void onComplete() {
-
-					}
-				});
+				.observeOn(AndroidSchedulers.mainThread());
 	}
 
 	@Override
