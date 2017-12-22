@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Davit_Zakaryan on 12/19/2017.
  */
-public class ItemsResponse {
+public class ItemModel {
 
 	@SerializedName("_id")
 	public String id;
@@ -24,4 +24,7 @@ public class ItemsResponse {
 
 	@SerializedName("long_desc")
 	public String longDesc;
+
+	@SerializedName("image_url")
+	public String url;
 }

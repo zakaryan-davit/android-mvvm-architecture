@@ -9,41 +9,51 @@ import android.view.View;
 
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
-import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
-import java.util.List;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	private IRepository elementsRepository;
-	private Context context;
+	private Context context; // To avoid leaks, this must be an Application Context.
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
+	private Disposable disposable;
 
 	ElementsViewModel(IRepository elementsRepository, Context context) {
 		this.elementsRepository = elementsRepository;
-		this.context = context;
+		this.context = context.getApplicationContext(); // Force use of Application Context.
 	}
 
 	@Override
 	public void onStart() {
-		elementsRepository.getElements(new IRepository.LoadElementsCallback() {
+		disposable = elementsRepository.getElements().subscribe(new Consumer<ListResponse<ItemModel>>() {
 			@Override
-			public void onElementsLoaded(List<ItemsResponse> elements) {
-				elementsAdapter.setElements(elements);
+			public void accept(ListResponse<ItemModel> itemModelListResponse) throws Exception {
+				elementsAdapter.setElements(itemModelListResponse.data);
+
+			}
+		}, new Consumer<Throwable>() {
+			@Override
+			public void accept(Throwable throwable) throws Exception {
+
 			}
 		});
 	}
 
 	@Override
 	public void onStop() {
-
+		if (!disposable.isDisposed()) {
+			disposable.dispose();
+		}
 	}
 
 	@Override
@@ -60,7 +70,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	@Override
 	public RecyclerView.Adapter getAdapter() {
 		elementsAdapter = new ElementsAdapter(FakeData.getElementList());
-		elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
+		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
 		return elementsAdapter;
 	}
 

@@ -11,10 +11,15 @@ import com.example.davit_zakaryan.mvvmapp.ui.elements.ElementsFragment;
 
 public class HomeActivity extends BaseActivity implements OnElementSelectionChangeListener {
 
+	// TODO inject this
+	private HomeViewModel homeViewModel;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+
+		homeViewModel = new HomeViewModel();
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);

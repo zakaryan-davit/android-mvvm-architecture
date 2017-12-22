@@ -1,16 +1,23 @@
 package com.example.davit_zakaryan.mvvmapp.data.service;
 
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
+import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-/**
- * Created by Davit_Zakaryan on 12/19/2017.
- */
 public interface AppService {
 
 	@POST("items")
-	Observable<ListResponse<ItemsResponse>> getItems();
+	Single<ListResponse<ItemModel>> getItems();
+
+	@POST("addItem")
+	Observable<ObjectResponse<ItemModel>> addItem(@Body ItemModel itemModel);
+
+	@POST("editItem")
+	Observable<ListResponse<ItemModel>> editItem();
+
 }

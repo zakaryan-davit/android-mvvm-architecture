@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemsResponse;
+import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.databinding.ItemElementBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
+import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +48,11 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 		this.changeListener = changeListener;
 	}
 
-	public void setElements(List<ItemsResponse> elements) {
+	public void setElements(List<ItemModel> elements) {
 		this.elements = new ArrayList<>();
-		for (ItemsResponse item : elements) {
-			Element element = new Element();
-			element.level.set(item.level);
-			element.description = item.longDesc;
-			element.name = item.title;
-			element.id = item.id;
-			this.elements.add(element);
+		for (ItemModel item : elements) {
+			// TODO need to create more clean solution
+			this.elements.add(ModelDaoConverter.convertItem(item));
 		}
 		notifyDataSetChanged();
 	}
@@ -75,7 +72,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		Element element = elements.get(position);
-		holder.bind(element);
+		holder.bindTo(element);
 	}
 
 	@Override
@@ -93,15 +90,15 @@ public class ElementsAdapter extends RecyclerView.Adapter<ElementsAdapter.ViewHo
 			this.itemElementBinding = elementBinding;
 		}
 
-		void bind(@NonNull Element element) {
+		void bindTo(@NonNull Element element) {
 			itemElementBinding.setElement(element);
-			itemElementBinding.executePendingBindings();
+			itemElementBinding.executePendingBindings(); //
 		}
 
 		@Override
 		public void onClick(View v) {
 
-			changeListener.onSelectionChanged(getAdapterPosition());
+			//changeListener.onSelectionChanged(getAdapterPosition());
 
 //			Bundle bundle = new Bundle();
 //			bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
