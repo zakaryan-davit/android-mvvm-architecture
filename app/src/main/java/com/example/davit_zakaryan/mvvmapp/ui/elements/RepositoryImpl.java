@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
 import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
+import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.data.service.ServiceFactory;
 
@@ -18,6 +19,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class RepositoryImpl implements IRepository {
 
+
+	AppService appService;
+
+	public RepositoryImpl(AppService appService) {
+		this.appService = appService;
+	}
+
 	@Override
 	public void getElements(@NonNull LoadElementsCallback callback, boolean loadMore, boolean forceUpdate) {
 
@@ -25,7 +33,7 @@ public class RepositoryImpl implements IRepository {
 
 	@Override
 	public Single<ListResponse<ItemModel>> getElements() {
-		return ServiceFactory.getAppService()
+		return appService
 				.getItems()
 				.subscribeOn(Schedulers.newThread())
 				.observeOn(AndroidSchedulers.mainThread());

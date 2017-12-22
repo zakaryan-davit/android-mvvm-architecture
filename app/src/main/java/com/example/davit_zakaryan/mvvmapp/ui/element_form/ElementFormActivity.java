@@ -11,7 +11,6 @@ import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementFormBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
-import com.example.davit_zakaryan.mvvmapp.ui.elements.RepositoryImpl;
 
 /**
  * Created by Davit_Zakaryan on 11/28/2017.
@@ -25,7 +24,7 @@ public class ElementFormActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		IRepository repository = new RepositoryImpl();
+		IRepository repository =null;// new RepositoryImpl();
 		elementFormViewModel = new ElementFormViewModel(repository, ElementFormActivity.this, false);
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
