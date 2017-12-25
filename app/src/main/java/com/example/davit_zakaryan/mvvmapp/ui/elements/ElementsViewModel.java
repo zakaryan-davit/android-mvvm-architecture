@@ -11,7 +11,7 @@ import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
-import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
+import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
@@ -22,13 +22,13 @@ import io.reactivex.functions.Consumer;
 
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
-	private IRepository elementsRepository;
+	private Repository elementsRepository;
 	private Context context; // To avoid leaks, this must be an Application Context.
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
 
-	ElementsViewModel(IRepository elementsRepository, Context context) {
+	ElementsViewModel(Repository elementsRepository, Context context) {
 		this.elementsRepository = elementsRepository;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 	}

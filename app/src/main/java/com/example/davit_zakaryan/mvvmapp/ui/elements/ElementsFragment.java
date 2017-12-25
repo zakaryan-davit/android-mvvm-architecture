@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
-import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
+import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 
@@ -45,7 +45,7 @@ public class ElementsFragment extends BaseFragment {
 		// ViewModel creation
 
 
-		IRepository repository = new RepositoryImpl(App.get(getActivity()).getAppComponent().getAppService());
+		Repository repository = new RepositoryImpl(App.get(getActivity()).getAppComponent().getAppService());
 		elementsViewModel = new ElementsViewModel(repository, getActivity());
 		elementsViewModel.onStart();
 
