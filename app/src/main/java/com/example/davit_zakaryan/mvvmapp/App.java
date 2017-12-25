@@ -33,8 +33,7 @@ public class App extends Application {
 		//Global dependencies graph is created here
 		appComponent = DaggerAppComponent.builder()
 				.appModule(new AppModule(this))
-				.networkModule(new NetworkModule(Constants.BASE_URL))
-				//.githubApiModule(new GithubApiModule()) //Can be removed because of no-arg constructor
+				.networkModule(new NetworkModule(Constants.BASE_URL)) // Can be removed if there is no-arg constructor
 				.build();
 
 	}

@@ -2,8 +2,6 @@ package com.example.davit_zakaryan.mvvmapp.di.module;
 
 import android.app.Application;
 
-import com.example.davit_zakaryan.mvvmapp.App;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,9 +10,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-	private App application;
+	private Application application;
 
-	public AppModule(App application) {
+	public AppModule(Application application) {
 		this.application = application;
 	}
 
