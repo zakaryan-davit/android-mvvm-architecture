@@ -28,6 +28,12 @@ public class NetworkModule {
 
 	@Provides
 	@Singleton
+	AppService provideAppService(Retrofit retrofit) {
+		return retrofit.create(AppService.class);
+	}
+
+	@Provides
+	@Singleton
 	Retrofit provideRetrofit(OkHttpClient okHttpClient) {
 		return new Retrofit.Builder().
 				baseUrl(serverURL)
@@ -35,12 +41,6 @@ public class NetworkModule {
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
-	}
-
-	@Provides
-	@Singleton
-	AppService provideAppService(Retrofit retrofit) {
-		return retrofit.create(AppService.class);
 	}
 
 	@Provides
