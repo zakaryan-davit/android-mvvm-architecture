@@ -1,5 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.di.component;
 
+import android.app.Application;
+
 import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
 import com.example.davit_zakaryan.mvvmapp.di.module.AppModule;
 import com.example.davit_zakaryan.mvvmapp.di.module.NetworkModule;
@@ -15,7 +17,7 @@ public interface AppComponent {
 	//void inject(App application);
 
 	//Dependencies below should be visible out of the component
-	//App getApplication();
+	Application getApplication();
 
 	AppService getAppService();
 }
