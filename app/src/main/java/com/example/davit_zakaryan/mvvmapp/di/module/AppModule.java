@@ -1,6 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.di.module;
 
 import android.app.Application;
+import android.content.Context;
 
 import javax.inject.Singleton;
 
@@ -20,5 +21,10 @@ public class AppModule {
 	@Singleton
 	Application provideApplication() {
 		return application;
+	}
+
+	@Provides
+	Context provideContext() {
+		return application.getApplicationContext();
 	}
 }

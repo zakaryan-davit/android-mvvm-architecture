@@ -27,7 +27,7 @@ public class NetworkModule {
 	}
 
 	@Provides
-	@Singleton
+	//@Singleton
 	AppService provideAppService(Retrofit retrofit) {
 		return retrofit.create(AppService.class);
 	}

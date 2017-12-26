@@ -6,11 +6,12 @@ import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface AppService {
 
-	@POST("items")
+	@GET("items")
 	Single<ListResponse<ItemModel>> getItems();
 
 	@POST("addItem")

@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
-import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 
@@ -28,10 +26,8 @@ import javax.inject.Inject;
 
 public class ElementsFragment extends BaseFragment {
 
-	private ElementsViewModel elementsViewModel;
-
 	@Inject
-	AppService appService;
+	ElementsViewModel elementsViewModel;
 
 	public ElementsFragment() {
 	}
@@ -43,13 +39,8 @@ public class ElementsFragment extends BaseFragment {
 		setHasOptionsMenu(true);
 
 		// ViewModel creation
-
-
-		Repository repository = new RepositoryImpl(App.get(getActivity()).getAppComponent().getAppService());
-		elementsViewModel = new ElementsViewModel(repository, getActivity());
+		App.get(getActivity()).getAppComponent().inject(this);
 		elementsViewModel.onStart();
-
-
 	}
 
 	@Override

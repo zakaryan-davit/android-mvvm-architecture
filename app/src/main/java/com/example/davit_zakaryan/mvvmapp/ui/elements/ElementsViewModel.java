@@ -28,7 +28,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
 
-	ElementsViewModel(Repository elementsRepository, Context context) {
+	public ElementsViewModel(Repository elementsRepository, Context context) {
 		this.elementsRepository = elementsRepository;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 	}
