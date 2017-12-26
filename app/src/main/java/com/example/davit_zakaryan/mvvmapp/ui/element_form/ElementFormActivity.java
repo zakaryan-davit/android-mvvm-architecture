@@ -7,8 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 
+import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
+import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.databinding.ActivityElementFormBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.elements.RepositoryImpl;
@@ -21,11 +22,14 @@ public class ElementFormActivity extends BaseActivity {
 
 	private ElementFormViewModel elementFormViewModel;
 
+//	@Inject
+//	AppService appService;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		IRepository repository = new RepositoryImpl();
+		Repository repository = new RepositoryImpl(App.get(ElementFormActivity.this).getAppComponent().getAppService());
 		elementFormViewModel = new ElementFormViewModel(repository, ElementFormActivity.this, false);
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

@@ -5,17 +5,22 @@ import android.databinding.ObservableField;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
-import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
+import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
+import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class ElementFormViewModel implements BaseViewModel {
 
 	private ObservableField<Element> elementObservable = new ObservableField<>();
-	private IRepository repository;
+	private Repository repository;
 	private Context context;
+	private Disposable disposable;
 
-	ElementFormViewModel(IRepository repository, Context context, boolean isCreated) {
+	ElementFormViewModel(Repository repository, Context context, boolean isCreated) {
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.repository = repository;
 		if (!isCreated) {
@@ -35,17 +40,20 @@ public class ElementFormViewModel implements BaseViewModel {
 
 	@Override
 	public void onStop() {
-
+		if (!disposable.isDisposed()) {
+			disposable.dispose();
+		}
 	}
 
 
 	public void onClickButtonSave(Element element) {
-		repository.addElement(ModelDaoConverter.convertElement(element), new IRepository.AddElementCallback() {
-			@Override
-			public void onElementAdded(ItemModel element) {
-				System.out.println("success");
-			}
-		});
+		disposable = repository.addElement(ModelDaoConverter.convertElement(element))
+				.subscribe(new Consumer<ObjectResponse<ItemModel>>() {
+					@Override
+					public void accept(ObjectResponse<ItemModel> itemModelObjectResponse) throws Exception {
+						System.out.println("success");
+					}
+				});
 	}
 
 }

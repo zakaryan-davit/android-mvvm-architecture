@@ -17,14 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
-import com.example.davit_zakaryan.mvvmapp.data.service.IRepository;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 
+import javax.inject.Inject;
+
 public class ElementsFragment extends BaseFragment {
 
-	private ElementsViewModel elementsViewModel;
+	@Inject
+	ElementsViewModel elementsViewModel;
 
 	public ElementsFragment() {
 	}
@@ -36,8 +39,7 @@ public class ElementsFragment extends BaseFragment {
 		setHasOptionsMenu(true);
 
 		// ViewModel creation
-		IRepository repository = new RepositoryImpl();
-		elementsViewModel = new ElementsViewModel(repository, getActivity());
+		App.get(getActivity()).getAppComponent().inject(this);
 		elementsViewModel.onStart();
 	}
 
