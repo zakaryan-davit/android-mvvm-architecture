@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +16,6 @@ import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementDetailsBinding;
-import com.example.davit_zakaryan.mvvmapp.ui.base.BaseActivity;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
@@ -62,7 +62,7 @@ public class ElementDetailsFragment extends BaseFragment {
 		binding.setViewModel(viewModel);
 
 		// Show the Up button in the action bar.
-		ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+		ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setDisplayShowHomeEnabled(true);

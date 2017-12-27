@@ -16,6 +16,8 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
+import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -28,6 +30,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
 
+	@Inject
 	public ElementsViewModel(Repository elementsRepository, Context context) {
 		this.elementsRepository = elementsRepository;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
