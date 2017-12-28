@@ -13,30 +13,35 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListen
 /**
  * Created by Davit_Zakaryan on 12/20/2017.
  */
-public class ElementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ItemElementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-	static ElementViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
+	static ItemElementViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
 		ItemElementBinding binding = ItemElementBinding.inflate(layoutInflater, parent, false);
-		return new ElementViewHolder(binding);
+		return new ItemElementViewHolder(binding);
 	}
 
 	private ItemElementBinding itemElementBinding;
 	private OnElementSelectionChangeListener changeListener;
 
-	private ElementViewHolder(ItemElementBinding elementBinding) {
+	private ItemElementViewHolder(ItemElementBinding elementBinding) {
 		super(elementBinding.getRoot());
 		elementBinding.getRoot().setOnClickListener(this);
 		this.itemElementBinding = elementBinding;
 	}
 
 	public void bindTo(@NonNull Element element) {
-		itemElementBinding.setElement(element);
-		itemElementBinding.executePendingBindings(); //
+		itemElementBinding.setViewModel(element);
+		itemElementBinding.executePendingBindings();
 	}
 
 	@Override
 	public void onClick(View v) {
-		changeListener.onSelectionChanged(getAdapterPosition());
+
+		int position = getAdapterPosition();
+		if (position != RecyclerView.NO_POSITION) {
+			//changeListener.onSelectionChanged(getAdapterPosition());
+		}
+
 		// TODO add fragment transaction
 		//  Bundle bundle = new Bundle();
 		//  bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);

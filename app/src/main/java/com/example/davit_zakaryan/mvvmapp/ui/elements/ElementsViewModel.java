@@ -18,8 +18,8 @@ import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
@@ -38,18 +38,18 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	@Override
 	public void onStart() {
-		disposable = elementsRepository.getElements().subscribe(new Consumer<ListResponse<ItemModel>>() {
-			@Override
-			public void accept(ListResponse<ItemModel> itemModelListResponse) throws Exception {
-				elementsAdapter.setElements(itemModelListResponse.data);
 
-			}
-		}, new Consumer<Throwable>() {
-			@Override
-			public void accept(Throwable throwable) throws Exception {
-
-			}
+		Observable<String> observable = Observable.create(e -> {
+			e.onNext("Hello, world!");
+			e.onComplete();
 		});
+
+		observable.map(s -> s + "ara ")
+				.subscribe(System.out::println);
+
+		disposable = elementsRepository
+				.getElements()
+				.subscribe(this::updateAdapter);
 	}
 
 	@Override
@@ -83,8 +83,12 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 		context.startActivity(intent);
 	}
 
+	public void updateAdapter(ListResponse<ItemModel> itemModelListResponse) {
+		elementsAdapter.setElements(itemModelListResponse.data);
+	}
+
 	public void setChosenType(int chosenType) {
-		elementsAdapter.setChosenType(chosenType);
+		// TODO update list notify adapter
 	}
 
 	public int getChosenType() {

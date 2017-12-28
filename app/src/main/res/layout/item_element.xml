@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="element"
+            name="viewModel"
             type="com.example.davit_zakaryan.mvvmapp.data.model.Element" />
     </data>
 
@@ -23,9 +23,9 @@
             android:layout_height="48dp"
             android:background="@drawable/circle"
             android:gravity="center"
-            android:text="@{String.valueOf(element.level)}"
+            android:text="@{String.valueOf(viewModel.level)}"
             android:textSize="@dimen/text_subhead"
-            app:level_background="@{element.level}"
+            app:level_background="@{viewModel.level}"
             tools:text="10" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/item_element_level_text"
-            android:text="@{element.name}"
+            android:text="@{viewModel.name}"
             tools:text="Title" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_alignStart="@+id/item_element_title_text"
             android:layout_below="@+id/item_element_title_text"
             android:layout_marginTop="0dp"
-            android:text="@{element.shortDesc}"
+            android:text="@{viewModel.shortDesc}"
             tools:text="Subtitle" />
 
     </RelativeLayout>
