@@ -12,12 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementDetailsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
+import com.example.davit_zakaryan.mvvmapp.util.RxBus;
+
+import javax.inject.Inject;
 
 /**
  * Created by Davit_Zakaryan on 12/8/2017.
@@ -29,23 +33,27 @@ public class ElementDetailsFragment extends BaseFragment {
 	public static String KEY_POSITION = "position";
 	private Element element;
 	private int chosenType;
-	private ElementDetailsViewModel viewModel;
+
+	@Inject
+	ElementDetailsViewModel viewModel;
+
+	@Inject
+	RxBus rxBus;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		// ViewModel creation
+		App.get(getActivity()).getAppComponent().inject(this);
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-		viewModel = new ElementDetailsViewModel();
-
 		FragmentElementDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_element_details, container, false);
-
-
 		chosenType = 0;
 		int selectedIndex = 0;
 		if (getArguments() != null) {

@@ -10,6 +10,8 @@ import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 
+import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -20,13 +22,14 @@ public class ElementFormViewModel implements BaseViewModel {
 	private Context context;
 	private Disposable disposable;
 
-	ElementFormViewModel(Repository repository, Context context, boolean isCreated) {
+	@Inject
+	ElementFormViewModel(Repository repository, Context context) {
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.repository = repository;
-		if (!isCreated) {
-			this.elementObservable = new ObservableField<>(new Element());
-			elementObservable.get().url.set("http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg");
-		}
+//		if (!isCreated) {
+//			this.elementObservable = new ObservableField<>(new Element());
+//			elementObservable.get().url.set("http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg");
+//		}
 	}
 
 	public Element getElement() {

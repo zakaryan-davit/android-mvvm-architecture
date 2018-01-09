@@ -25,6 +25,8 @@ import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
+
 public class ElementsFragment extends BaseFragment {
 
 	@Inject
@@ -44,6 +46,15 @@ public class ElementsFragment extends BaseFragment {
 
 		// ViewModel creation
 		App.get(getActivity()).getAppComponent().inject(this);
+		rxBus.getEvents().subscribe(new Consumer<Object>() {
+			@Override
+			public void accept(Object o) throws Exception {
+				System.out.println("ElementsFragment");
+
+			}
+		});
+		rxBus.send(new Object());
+		elementsViewModel.setRxBus(rxBus);
 		elementsViewModel.onStart();
 	}
 

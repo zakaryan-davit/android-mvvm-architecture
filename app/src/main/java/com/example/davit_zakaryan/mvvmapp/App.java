@@ -15,7 +15,6 @@ import com.facebook.stetho.Stetho;
 public class App extends Application {
 
 	private AppComponent appComponent;
-	private AppComponent appComponent2;
 
 	public static App get(Context context) {
 		return (App) context.getApplicationContext();
@@ -38,14 +37,6 @@ public class App extends Application {
 				.networkModule(new NetworkModule(Constants.BASE_URL)) // Can be removed if there is no-arg constructor
 				.viewModelModule(new ViewModelModule())
 				.build();
-
-		appComponent2 = DaggerAppComponent.builder()
-				.appModule(new AppModule(this))
-				.networkModule(new NetworkModule(Constants.BASE_URL)) // Can be removed if there is no-arg constructor
-				.viewModelModule(new ViewModelModule())
-				.build();
-
-		System.out.println("app comonent  == component 2" +( appComponent.getAppService() == appComponent.getAppService()));
 	}
 
 	//Just a helper to provide appComponent to local components which depend on it

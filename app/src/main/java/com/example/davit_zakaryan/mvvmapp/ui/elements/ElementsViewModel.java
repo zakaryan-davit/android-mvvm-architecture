@@ -15,6 +15,7 @@ import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
+import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import javax.inject.Inject;
 
@@ -30,10 +31,16 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
 
+	private RxBus rxBus;
+
 	@Inject
 	public ElementsViewModel(Repository elementsRepository, Context context) {
 		this.elementsRepository = elementsRepository;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
+	}
+
+	public void setRxBus(RxBus rxBus) {
+		this.rxBus = rxBus;
 	}
 
 	@Override
