@@ -53,7 +53,6 @@ public class ElementsFragment extends BaseFragment {
 
 			}
 		});
-		rxBus.send(new Object());
 		elementsViewModel.setRxBus(rxBus);
 		elementsViewModel.onStart();
 	}
@@ -73,14 +72,9 @@ public class ElementsFragment extends BaseFragment {
 
 
 	@Override
-	public void onStart() {
-		super.onStart();
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
+	public void onDestroy() {
 		elementsViewModel.onStop();
+		super.onDestroy();
 	}
 
 	@Override

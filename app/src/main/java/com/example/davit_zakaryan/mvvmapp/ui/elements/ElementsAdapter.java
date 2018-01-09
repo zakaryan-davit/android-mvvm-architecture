@@ -12,6 +12,8 @@ import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by Davit_Zakaryan on 12/5/2017.
  */
@@ -26,8 +28,8 @@ public class ElementsAdapter extends RecyclerView.Adapter<ItemElementViewHolder>
 	private List<Element> elements = new ArrayList<>();
 
 
-	ElementsAdapter(List<Element> elements) {
-		this.elements = elements;
+	@Inject
+	ElementsAdapter() {
 	}
 
 	public void setChangeListener(OnElementSelectionChangeListener changeListener) {

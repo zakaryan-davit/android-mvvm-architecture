@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
@@ -19,14 +18,14 @@ import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
-	private Repository elementsRepository;
 	private Context context; // To avoid leaks, this must be an Application Context.
+	private Repository elementsRepository;
+
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
@@ -45,15 +44,6 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	@Override
 	public void onStart() {
-
-		Observable<String> observable = Observable.create(e -> {
-			e.onNext("Hello, world!");
-			e.onComplete();
-		});
-
-		observable.map(s -> s + "ara ")
-				.subscribe(System.out::println);
-
 		disposable = elementsRepository
 				.getElements()
 				.subscribe(this::updateAdapter);
@@ -79,7 +69,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	@Override
 	public RecyclerView.Adapter getAdapter() {
-		elementsAdapter = new ElementsAdapter(FakeData.getElementList());
+		elementsAdapter = new ElementsAdapter();
 		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
 		return elementsAdapter;
 	}
