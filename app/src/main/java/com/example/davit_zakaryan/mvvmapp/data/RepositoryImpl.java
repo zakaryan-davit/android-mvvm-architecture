@@ -1,4 +1,4 @@
-package com.example.davit_zakaryan.mvvmapp.ui.elements;
+package com.example.davit_zakaryan.mvvmapp.data;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;

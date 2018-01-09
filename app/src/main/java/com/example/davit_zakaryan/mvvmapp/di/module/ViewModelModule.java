@@ -1,9 +1,9 @@
 package com.example.davit_zakaryan.mvvmapp.di.module;
 
+import com.example.davit_zakaryan.mvvmapp.data.RepositoryImpl;
 import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
 import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.HomeViewModel;
-import com.example.davit_zakaryan.mvvmapp.ui.elements.RepositoryImpl;
 
 import dagger.Module;
 import dagger.Provides;
