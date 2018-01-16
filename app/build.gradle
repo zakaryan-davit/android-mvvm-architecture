@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 project.ext {
     // Sdk and tools
@@ -137,6 +138,10 @@ dependencies {
 
     // HockeySDK
     implementation "net.hockeyapp.android:HockeySDK:$project.hockeyAppVersion"
+
+    // Persistence Green DAO
+    implementation "org.greenrobot:greendao:3.2.2"
+    implementation "org.greenrobot:greendao-generator:3.2.2"
 
     // Custom View
     implementation project(":customview")
