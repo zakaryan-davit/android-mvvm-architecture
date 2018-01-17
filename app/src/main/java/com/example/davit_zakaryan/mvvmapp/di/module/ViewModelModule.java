@@ -1,8 +1,8 @@
 package com.example.davit_zakaryan.mvvmapp.di.module;
 
-import com.example.davit_zakaryan.mvvmapp.data.RepositoryImpl;
+import com.example.davit_zakaryan.mvvmapp.data.network.NetworkHelper;
+import com.example.davit_zakaryan.mvvmapp.data.network.NetworkHelperImpl;
 import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
-import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.ui.base.HomeViewModel;
 
 import dagger.Module;
@@ -19,12 +19,12 @@ public class ViewModelModule {
 
 	// Could be commented if there is constructor with Inject
 //	@Provides
-//	ElementsViewModel provideElementsViewModel(Repository repository, Context context) {
+//	ElementsViewModel provideElementsViewModel(NetworkHelper repository, Context context) {
 //		return new ElementsViewModel(repository, context);
 //	}
 
 	@Provides
-	Repository provideRepository(AppService appService) {
-		return new RepositoryImpl(appService);
+	NetworkHelper provideRepository(AppService appService) {
+		return new NetworkHelperImpl(appService);
 	}
 }

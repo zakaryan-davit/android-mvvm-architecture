@@ -1,26 +1,25 @@
 package com.example.davit_zakaryan.mvvmapp.data.db;
 
 
-import com.example.davit_zakaryan.mvvmapp.data.db.model.Element;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntity;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public interface DbHelper {
 
-	Flowable<List<Element>> findAll();
+	Single<List<ElementEntity>> findAll();
 
-	//Flowable<List<Element>> findById();
+	//Flowable<List<ElementEntity>> findById();
 
-	//Flowable<List<Element>> findByName();
+	//Flowable<List<ElementEntity>> findByName();
 
-	Single<Long> insertElement(Element element);
+	Single<Long> insertElement(ElementEntity elementEntity);
 
-	Single<Boolean> insertAll(List<Element> elementLIst);
+	Single<Boolean> insertAll(List<ElementEntity> elementEntityLIst);
 
-	Single<Boolean> updateElement(Element element);
+	Single<Boolean> updateElement(ElementEntity elementEntity);
 
-	Single<Boolean> deleteElement(Element element);
+	Single<Boolean> deleteElement(ElementEntity elementEntity);
 }

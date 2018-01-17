@@ -14,9 +14,8 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
-/**
- * Created by Davit_Zakaryan on 1/9/2018.
- */
+import static com.example.davit_zakaryan.mvvmapp.util.Constants.EXTRA_IS_ELEMENT_CREATED;
+
 public class ElementFormFragment extends BaseFragment {
 
 	@Inject
@@ -31,6 +30,10 @@ public class ElementFormFragment extends BaseFragment {
 
 		// ViewModel creation
 		App.get(getActivity()).getAppComponent().inject(this);
+
+		if (getActivity().getIntent().getExtras() != null) {
+			elementFormViewModel.isCreated = getActivity().getIntent().getExtras().getBoolean(EXTRA_IS_ELEMENT_CREATED);
+		}
 
 		elementFormViewModel.onStart();
 	}

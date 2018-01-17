@@ -3,54 +3,56 @@ package com.example.davit_zakaryan.mvvmapp.data.db;
 
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoMaster;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoSession;
-import com.example.davit_zakaryan.mvvmapp.data.db.model.Element;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntity;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntityDao;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class DbHelperImpl implements DbHelper {
 
 	private DaoSession daoSession;
+	private ElementEntityDao entityDao;
 
 	@Inject
 	DbHelperImpl(DbOpenHelper dbOpenHelper) {
 		daoSession = new DaoMaster(dbOpenHelper.getWritableDb()).newSession();
+		entityDao = daoSession.getElementEntityDao();
 	}
 
 	@Override
-	public Flowable<List<Element>> findAll() {
-		return Flowable.fromCallable(() -> daoSession.getElementDao().loadAll());
+	public Single<List<ElementEntity>> findAll() {
+		return Single.fromCallable(() -> entityDao.loadAll());
 	}
 
 	@Override
-	public Single<Long> insertElement(Element element) {
-		return Single.fromCallable(() -> daoSession.getElementDao().insert(element));
+	public Single<Long> insertElement(ElementEntity elementEntity) {
+		return Single.fromCallable(() -> entityDao.insert(elementEntity));
 	}
 
 	@Override
-	public Single<Boolean> insertAll(List<Element> elements) {
+	public Single<Boolean> insertAll(List<ElementEntity> elementEntities) {
 		return Single.fromCallable(() -> {
-			daoSession.getElementDao().insertInTx(elements);
+			entityDao.insertInTx(elementEntities);
 			return true;
 		});
 	}
 
 	@Override
-	public Single<Boolean> updateElement(Element element) {
+	public Single<Boolean> updateElement(ElementEntity elementEntity) {
 		return Single.fromCallable(() -> {
-			daoSession.getElementDao().update(element);
+			entityDao.update(elementEntity);
 			return true;
 		});
 	}
 
 	@Override
-	public Single<Boolean> deleteElement(Element element) {
+	public Single<Boolean> deleteElement(ElementEntity elementEntity) {
 		return Single.fromCallable(() -> {
-			daoSession.getElementDao().deleteByKey(element.getId());
+			entityDao.deleteByKey(elementEntity.getId());
 			return true;
 		});
 	}

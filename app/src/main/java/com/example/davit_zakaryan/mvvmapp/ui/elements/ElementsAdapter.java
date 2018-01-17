@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
-import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +34,9 @@ public class ElementsAdapter extends RecyclerView.Adapter<ItemElementViewHolder>
 		this.changeListener = changeListener;
 	}
 
-	public void setElements(List<ItemModel> elements) {
+	public void setElements(List<Element> elements) {
 		this.elements = new ArrayList<>();
-		for (ItemModel item : elements) {
-			// TODO need to create more clean solution
-			this.elements.add(ModelDaoConverter.convertItem(item));
-		}
+		this.elements.addAll(elements);
 		notifyDataSetChanged();
 	}
 

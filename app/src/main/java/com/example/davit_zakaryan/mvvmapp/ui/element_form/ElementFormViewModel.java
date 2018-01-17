@@ -2,11 +2,12 @@ package com.example.davit_zakaryan.mvvmapp.ui.element_form;
 
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 
+import com.example.davit_zakaryan.mvvmapp.data.db.DbHelper;
+import com.example.davit_zakaryan.mvvmapp.data.db.DbHelperImpl;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
-import com.example.davit_zakaryan.mvvmapp.data.network.model.ObjectResponse;
-import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
+import com.example.davit_zakaryan.mvvmapp.data.network.NetworkHelper;
 import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
@@ -18,19 +19,23 @@ import io.reactivex.functions.Consumer;
 
 public class ElementFormViewModel implements BaseViewModel {
 
+	public boolean isCreated;
 	private ObservableField<Element> elementObservable = new ObservableField<>();
-	private Repository repository;
+	private NetworkHelper networkHelper;
+	private DbHelper dbHelper;
 	private Context context;
 	private Disposable disposable;
 
 	@Inject
-	ElementFormViewModel(Repository repository, @ApplicationContext Context context) {
+	ElementFormViewModel(NetworkHelper repository, @ApplicationContext Context context,
+	                     DbHelperImpl dbHelper) {
 		this.context = context.getApplicationContext(); // Force use of Application Context.
-		this.repository = repository;
-//		if (!isCreated) {
-//			this.elementObservable = new ObservableField<>(new Element());
-//			elementObservable.get().url.set("http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg");
-//		}
+		this.networkHelper = repository;
+		this.dbHelper = dbHelper;
+		if (!isCreated) {
+			this.elementObservable = new ObservableField<>(new Element());
+			elementObservable.get().url.set("http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg");
+		}
 	}
 
 	public Element getElement() {
@@ -39,7 +44,7 @@ public class ElementFormViewModel implements BaseViewModel {
 
 	@Override
 	public void onStart() {
-		//this.element = repository.addElement();
+		//this.element = networkHelper.addElement();
 	}
 
 	@Override
@@ -50,12 +55,17 @@ public class ElementFormViewModel implements BaseViewModel {
 	}
 
 
-	public void onClickButtonSave(Element element) {
-		disposable = repository.addElement(ModelDaoConverter.convertElement(element))
-				.subscribe(new Consumer<ObjectResponse<ItemModel>>() {
+	public void onClickButtonSave(@NonNull Element element) {
+		//TODO maybe needed
+		//disposable = networkHelper
+		//		.addElement(ModelDaoConverter.convertToItemModel(element))
+		//		.subscribe(itemModelObjectResponse -> System.out.println("success"));
+
+		disposable = dbHelper.insertElement(ModelDaoConverter.convertToElementEntity(element))
+				.subscribe(new Consumer<Long>() {
 					@Override
-					public void accept(ObjectResponse<ItemModel> itemModelObjectResponse) throws Exception {
-						System.out.println("success");
+					public void accept(Long aLong) throws Exception {
+						System.out.println("aflhslfhlkjgklgjker   long === " + aLong);
 					}
 				});
 	}

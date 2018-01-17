@@ -10,7 +10,7 @@ import java.util.Date;
 
 
 @Entity(nameInDb = "elements")
-public class Element {
+public class ElementEntity {
 
 	@Id(autoincrement = true)
 	private Long id;
@@ -39,8 +39,8 @@ public class Element {
 	@Property(nameInDb = "image_url")
 	public String url;
 
-	@Generated(hash = 432809562)
-	public Element(Long id, String serverId, String title, String itemType,
+	@Generated(hash = 423545585)
+	public ElementEntity(Long id, String serverId, String title, String itemType,
 			int level, String shortDesc, String description, Date doDate, String url) {
 		this.id = id;
 		this.serverId = serverId;
@@ -53,8 +53,8 @@ public class Element {
 		this.url = url;
 	}
 
-	@Generated(hash = 386918278)
-	public Element() {
+	@Generated(hash = 33487496)
+	public ElementEntity() {
 	}
 
 	public Long getId() {
@@ -128,5 +128,7 @@ public class Element {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	
 
 }

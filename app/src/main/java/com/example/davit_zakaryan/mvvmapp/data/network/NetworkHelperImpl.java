@@ -1,23 +1,22 @@
-package com.example.davit_zakaryan.mvvmapp.data;
+package com.example.davit_zakaryan.mvvmapp.data.network;
 
 import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.network.model.ListResponse;
 import com.example.davit_zakaryan.mvvmapp.data.network.model.ObjectResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.AppService;
-import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
+
+import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by Davit_Zakaryan on 12/19/2017.
- */
-public class RepositoryImpl implements Repository {
+@Singleton
+public class NetworkHelperImpl implements NetworkHelper {
 
 	private AppService appService;
 
-	public RepositoryImpl(AppService appService) {
+	public NetworkHelperImpl(AppService appService) {
 		this.appService = appService;
 	}
 
