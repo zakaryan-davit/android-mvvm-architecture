@@ -4,6 +4,7 @@ import com.example.davit_zakaryan.mvvmapp.data.db.DbOpenHelper;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoMaster;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoSession;
 import com.example.davit_zakaryan.mvvmapp.di.DatabaseInfo;
+import com.example.davit_zakaryan.mvvmapp.di.PreferenceInfo;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
 
 import javax.inject.Singleton;
@@ -30,6 +31,12 @@ public class DatabaseModule {
 	@DatabaseInfo
 	String provideDatabaseName() {
 		return Constants.DB_NAME;
+	}
+
+	@Provides
+	@PreferenceInfo
+	String providePreferenceName() {
+		return Constants.PREF_NAME;
 	}
 
 }
