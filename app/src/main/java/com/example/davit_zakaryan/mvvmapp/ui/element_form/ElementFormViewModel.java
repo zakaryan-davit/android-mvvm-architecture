@@ -7,6 +7,7 @@ import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
+import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 
@@ -23,7 +24,7 @@ public class ElementFormViewModel implements BaseViewModel {
 	private Disposable disposable;
 
 	@Inject
-	ElementFormViewModel(Repository repository, Context context) {
+	ElementFormViewModel(Repository repository, @ApplicationContext Context context) {
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.repository = repository;
 //		if (!isCreated) {

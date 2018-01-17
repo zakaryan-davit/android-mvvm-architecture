@@ -8,13 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.davit_zakaryan.mvvmapp.R;
+import com.example.davit_zakaryan.mvvmapp.data.db.DbHelperImpl;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.Element;
 import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
+import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
 import com.example.davit_zakaryan.mvvmapp.util.RxBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,6 +31,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	private Context context; // To avoid leaks, this must be an Application Context.
 	private Repository elementsRepository;
+	private DbHelperImpl dbHelper;
 
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
@@ -32,10 +39,12 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	private RxBus rxBus;
 
+
 	@Inject
-	public ElementsViewModel(Repository elementsRepository, Context context) {
+	public ElementsViewModel(Repository elementsRepository, @ApplicationContext Context context, DbHelperImpl dbHelper) {
 		this.elementsRepository = elementsRepository;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
+		this.dbHelper = dbHelper;
 	}
 
 	public void setRxBus(RxBus rxBus) {
@@ -81,6 +90,22 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	}
 
 	public void updateAdapter(ListResponse<ItemModel> itemModelListResponse) {
+
+		List<Element> elements = new ArrayList<>();
+		Element element = new Element();
+
+		element.setTitle("sdlkjsldkfj");
+
+		elements.add(element);
+
+		//elements.add(element);
+
+
+		dbHelper.insertAll(elements)
+				.subscribe(aBoolean -> dbHelper.findAll().subscribe(elements1 -> {
+
+				}));
+
 		elementsAdapter.setElements(itemModelListResponse.data);
 	}
 

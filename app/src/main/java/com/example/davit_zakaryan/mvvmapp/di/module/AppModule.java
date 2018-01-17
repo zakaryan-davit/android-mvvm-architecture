@@ -3,6 +3,8 @@ package com.example.davit_zakaryan.mvvmapp.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,6 +26,7 @@ public class AppModule {
 	}
 
 	@Provides
+	@ApplicationContext
 	Context provideContext() {
 		return application.getApplicationContext();
 	}
