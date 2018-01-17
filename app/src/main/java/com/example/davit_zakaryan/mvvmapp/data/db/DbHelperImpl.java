@@ -17,7 +17,7 @@ public class DbHelperImpl implements DbHelper {
 	private DaoSession daoSession;
 
 	@Inject
-	public DbHelperImpl(DbOpenHelper dbOpenHelper) {
+	DbHelperImpl(DbOpenHelper dbOpenHelper) {
 		daoSession = new DaoMaster(dbOpenHelper.getWritableDb()).newSession();
 	}
 
@@ -26,10 +26,34 @@ public class DbHelperImpl implements DbHelper {
 		return Flowable.fromCallable(() -> daoSession.getElementDao().loadAll());
 	}
 
+	@Override
+	public Single<Long> insertElement(Element element) {
+		return Single.fromCallable(() -> daoSession.getElementDao().insert(element));
+	}
+
+	@Override
 	public Single<Boolean> insertAll(List<Element> elements) {
 		return Single.fromCallable(() -> {
 			daoSession.getElementDao().insertInTx(elements);
 			return true;
 		});
 	}
+
+	@Override
+	public Single<Boolean> updateElement(Element element) {
+		return Single.fromCallable(() -> {
+			daoSession.getElementDao().update(element);
+			return true;
+		});
+	}
+
+	@Override
+	public Single<Boolean> deleteElement(Element element) {
+		return Single.fromCallable(() -> {
+			daoSession.getElementDao().deleteByKey(element.getId());
+			return true;
+		});
+	}
+
+
 }

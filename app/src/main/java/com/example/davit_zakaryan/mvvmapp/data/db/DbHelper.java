@@ -6,6 +6,7 @@ import com.example.davit_zakaryan.mvvmapp.data.db.model.Element;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 public interface DbHelper {
 
@@ -15,9 +16,11 @@ public interface DbHelper {
 
 	//Flowable<List<Element>> findByName();
 
-	//Single<Boolean> insertElement(Element element);
+	Single<Long> insertElement(Element element);
 
-	//Single<Boolean> updateElement(Element element);
+	Single<Boolean> insertAll(List<Element> elementLIst);
 
-	//Single<Boolean> deleteElement(Element element);
+	Single<Boolean> updateElement(Element element);
+
+	Single<Boolean> deleteElement(Element element);
 }
