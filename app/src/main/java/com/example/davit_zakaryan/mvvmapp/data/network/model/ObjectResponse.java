@@ -1,4 +1,4 @@
-package com.example.davit_zakaryan.mvvmapp.data.model;
+package com.example.davit_zakaryan.mvvmapp.data.network.model;
 
 import com.google.gson.annotations.SerializedName;
 

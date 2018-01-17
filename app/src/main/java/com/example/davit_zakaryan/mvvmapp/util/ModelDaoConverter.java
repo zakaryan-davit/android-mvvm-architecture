@@ -1,7 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.util;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
 
 /**
  * Created by Davit_Zakaryan on 12/20/2017.

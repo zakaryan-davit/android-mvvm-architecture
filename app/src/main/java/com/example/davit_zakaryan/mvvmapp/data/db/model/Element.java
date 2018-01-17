@@ -13,7 +13,7 @@ import java.util.Date;
 public class Element {
 
 	@Id(autoincrement = true)
-	private long id;
+	private Long id;
 
 	@Property(nameInDb = "server_id")
 	private String serverId;
@@ -39,9 +39,9 @@ public class Element {
 	@Property(nameInDb = "image_url")
 	public String url;
 
-	@Generated(hash = 806674105)
-	public Element(long id, String serverId, String title, String itemType,
-	               int level, String shortDesc, String description, Date doDate, String url) {
+	@Generated(hash = 432809562)
+	public Element(Long id, String serverId, String title, String itemType,
+			int level, String shortDesc, String description, Date doDate, String url) {
 		this.id = id;
 		this.serverId = serverId;
 		this.title = title;
@@ -57,11 +57,11 @@ public class Element {
 	public Element() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

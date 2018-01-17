@@ -1,8 +1,8 @@
 package com.example.davit_zakaryan.mvvmapp.data.service;
 
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
-import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
-import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ListResponse;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ObjectResponse;
 
 import io.reactivex.Single;
 

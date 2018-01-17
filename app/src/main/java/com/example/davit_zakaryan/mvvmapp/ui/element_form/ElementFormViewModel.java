@@ -4,8 +4,8 @@ import android.content.Context;
 import android.databinding.ObservableField;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
-import com.example.davit_zakaryan.mvvmapp.data.model.ObjectResponse;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ObjectResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;

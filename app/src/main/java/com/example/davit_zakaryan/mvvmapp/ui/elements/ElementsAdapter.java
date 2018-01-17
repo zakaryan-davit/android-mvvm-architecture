@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 

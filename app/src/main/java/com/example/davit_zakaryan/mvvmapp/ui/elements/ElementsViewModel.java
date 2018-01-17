@@ -10,20 +10,20 @@ import android.view.View;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.db.DbHelperImpl;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.model.ItemModel;
-import com.example.davit_zakaryan.mvvmapp.data.model.ListResponse;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ItemModel;
+import com.example.davit_zakaryan.mvvmapp.data.network.model.ListResponse;
 import com.example.davit_zakaryan.mvvmapp.data.service.Repository;
 import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.base.RecyclerViewViewModel;
 import com.example.davit_zakaryan.mvvmapp.ui.element_form.ElementFormActivity;
-import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
@@ -36,8 +36,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private Disposable disposable;
-
-	private RxBus rxBus;
+	private CompositeDisposable disposables = new CompositeDisposable();
 
 
 	@Inject
@@ -47,22 +46,20 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 		this.dbHelper = dbHelper;
 	}
 
-	public void setRxBus(RxBus rxBus) {
-		this.rxBus = rxBus;
-	}
-
 	@Override
 	public void onStart() {
 		disposable = elementsRepository
 				.getElements()
 				.subscribe(this::updateAdapter);
+		disposables.add(disposable);
 	}
 
 	@Override
 	public void onStop() {
-		if (!disposable.isDisposed()) {
-			disposable.dispose();
-		}
+//		if (!disposable.isDisposed()) {
+//			disposable.dispose();
+//		}
+		disposables.dispose();
 	}
 
 	@Override
@@ -86,6 +83,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	// TODO should be removed to some Handlers class
 	public void onClickButtonFab(View view) {
 		Intent intent = new Intent(context, ElementFormActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}
 

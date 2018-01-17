@@ -21,19 +21,13 @@ import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
-import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import javax.inject.Inject;
-
-import io.reactivex.functions.Consumer;
 
 public class ElementsFragment extends BaseFragment {
 
 	@Inject
 	ElementsViewModel elementsViewModel;
-
-	@Inject
-	RxBus rxBus;
 
 	public ElementsFragment() {
 	}
@@ -46,14 +40,6 @@ public class ElementsFragment extends BaseFragment {
 
 		// ViewModel creation
 		App.get(getActivity()).getAppComponent().inject(this);
-		rxBus.getEvents().subscribe(new Consumer<Object>() {
-			@Override
-			public void accept(Object o) throws Exception {
-				System.out.println("ElementsFragment");
-
-			}
-		});
-		elementsViewModel.setRxBus(rxBus);
 		elementsViewModel.onStart();
 	}
 
