@@ -33,7 +33,7 @@ import static com.example.davit_zakaryan.mvvmapp.util.Constants.EXTRA_IS_ELEMENT
 public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 	private Context context; // To avoid leaks, this must be an Application Context.
-	private NetworkHelper elementsNetworkHelper;
+	private NetworkHelper networkHelper;
 	private DbHelperImpl dbHelper;
 	private PreferencesHelperImpl preferencesHelper;
 
@@ -43,10 +43,10 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 
 
 	@Inject
-	public ElementsViewModel(NetworkHelper elementsNetworkHelper, @ApplicationContext Context context,
+	public ElementsViewModel(NetworkHelper networkHelper, @ApplicationContext Context context,
 	                         DbHelperImpl dbHelper, PreferencesHelperImpl preferencesHelper,
 	                         ElementsAdapter elementsAdapter) {
-		this.elementsNetworkHelper = elementsNetworkHelper;
+		this.networkHelper = networkHelper;
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.dbHelper = dbHelper;
 		this.preferencesHelper = preferencesHelper;
@@ -58,7 +58,7 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	public void onStart() {
 		Disposable getElementsDisposable;
 		if (!preferencesHelper.isDatabaseLoaded()) {
-			getElementsDisposable = elementsNetworkHelper
+			getElementsDisposable = networkHelper
 					.getElements()
 					.map(itemModelListResponse -> itemModelListResponse.data)
 					.flattenAsObservable(itemModels -> itemModels)
