@@ -3,6 +3,7 @@ package com.example.davit_zakaryan.mvvmapp.ui.elements;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.databinding.ObservableList;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,28 +25,27 @@ import io.reactivex.disposables.CompositeDisposable;
 import static com.example.davit_zakaryan.mvvmapp.util.Constants.EXTRA_IS_ELEMENT_CREATED;
 
 
-public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
+public class ElementsViewModel extends BaseViewModel implements RecyclerViewViewModel {
 
 	private Context context; // To avoid leaks, this must be an Application Context.
-	private DataSource dataSource;
-
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private CompositeDisposable disposables = new CompositeDisposable();
+	private ObservableList<Element> domainElements;
 
 
 	@Inject
 	public ElementsViewModel(@ApplicationContext Context context, ElementsAdapter elementsAdapter,
 	                         DataSource dataSource) {
+		super(dataSource);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
-		this.dataSource = dataSource;
 		this.elementsAdapter = elementsAdapter;
 		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
 	}
 
 	@Override
 	public void onStart() {
-		dataSource.getElementListSingle().subscribe(this::updateAdapter);
+		disposables.add(dataSource.getElementListSingle().subscribe(this::updateAdapter));
 	}
 
 	@Override
@@ -77,6 +77,8 @@ public class ElementsViewModel implements BaseViewModel, RecyclerViewViewModel {
 	}
 
 	public void updateAdapter(List<Element> domainElements) {
+		//this.domainElements.clear();
+		//this.domainElements.addAll(domainElements);
 		elementsAdapter.setElements(domainElements);
 	}
 

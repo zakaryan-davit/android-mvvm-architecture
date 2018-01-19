@@ -30,9 +30,9 @@ public class DataSource {
 	}
 
 	public Single<List<Element>> getElementListSingle() {
-		Single<List<Element>> getElementsDisposable;
+		Single<List<Element>> getElementSingle;
 		if (!preferencesHelper.isDatabaseLoaded()) {
-			getElementsDisposable = networkHelper
+			getElementSingle = networkHelper
 					.getElements()
 					.map(itemModelListResponse -> itemModelListResponse.data)
 					.flattenAsObservable(itemModels -> itemModels)
@@ -43,13 +43,13 @@ public class DataSource {
 							.toList()
 							.subscribe(this::insertAll));
 		} else {
-			getElementsDisposable = dbHelper
+			getElementSingle = dbHelper
 					.findAll()
 					.flattenAsObservable(elementEntities -> elementEntities)
 					.map(ModelDaoConverter::convertToElement)
 					.toList();
 		}
-		return getElementsDisposable;
+		return getElementSingle;
 	}
 
 	private void insertAll(List<ElementEntity> elementEntities) {
@@ -58,5 +58,15 @@ public class DataSource {
 					.doOnSuccess(aBoolean -> preferencesHelper.setDatabaseLoaded(aBoolean))
 					.subscribe(aBoolean -> System.out.println("Database inserted " + aBoolean));
 		}
+	}
+
+	public Single<Long> insertElement(Element element) {
+		return dbHelper.insertElement(ModelDaoConverter.convertToElementEntity(element));
+	}
+
+	public Single<Element> insertElementNetwork(Element element) {
+		return networkHelper
+				.addElement(ModelDaoConverter.convertToItemModel(element))
+				.map(itemModelObjectResponse -> ModelDaoConverter.convertToElement(itemModelObjectResponse.data));
 	}
 }

@@ -1,12 +1,17 @@
 package com.example.davit_zakaryan.mvvmapp.ui.base;
 
-/**
- * Created by Davit_Zakaryan on 11/23/2017.
- */
 
-public interface BaseViewModel {
+import com.example.davit_zakaryan.mvvmapp.data.DataSource;
 
-	void onStart();
+public abstract class BaseViewModel {
 
-	void onStop();
+	protected final DataSource dataSource;
+
+	protected BaseViewModel(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	protected abstract void onStart();
+
+	protected abstract void onStop();
 }

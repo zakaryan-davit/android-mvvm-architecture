@@ -4,34 +4,27 @@ import android.content.Context;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import com.example.davit_zakaryan.mvvmapp.data.db.DbHelper;
-import com.example.davit_zakaryan.mvvmapp.data.db.DbHelperImpl;
+import com.example.davit_zakaryan.mvvmapp.data.DataSource;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.data.network.NetworkHelper;
 import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
-import com.example.davit_zakaryan.mvvmapp.util.ModelDaoConverter;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.CompositeDisposable;
 
-public class ElementFormViewModel implements BaseViewModel {
+public class ElementFormViewModel extends BaseViewModel {
 
+	private Context context;
 	public boolean isCreated;
 	private ObservableField<Element> elementObservable = new ObservableField<>();
-	private NetworkHelper networkHelper;
-	private DbHelper dbHelper;
-	private Context context;
-	private Disposable disposable;
+	private CompositeDisposable disposables = new CompositeDisposable();
 
 	@Inject
-	ElementFormViewModel(NetworkHelper repository, @ApplicationContext Context context,
-	                     DbHelperImpl dbHelper) {
+	ElementFormViewModel(@ApplicationContext Context context,
+	                     DataSource dataSource) {
+		super(dataSource);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
-		this.networkHelper = repository;
-		this.dbHelper = dbHelper;
 		if (!isCreated) {
 			this.elementObservable = new ObservableField<>(new Element());
 			elementObservable.get().url.set("http://www.planwallpaper.com/static/images/desktop-year-of-the-tiger-images-wallpaper.jpg");
@@ -49,25 +42,12 @@ public class ElementFormViewModel implements BaseViewModel {
 
 	@Override
 	public void onStop() {
-		if (!disposable.isDisposed()) {
-			disposable.dispose();
-		}
+		disposables.dispose();
 	}
 
 
 	public void onClickButtonSave(@NonNull Element element) {
-		//TODO maybe needed
-		//disposable = networkHelper
-		//		.addElement(ModelDaoConverter.convertToItemModel(element))
-		//		.subscribe(itemModelObjectResponse -> System.out.println("success"));
-
-		disposable = dbHelper.insertElement(ModelDaoConverter.convertToElementEntity(element))
-				.subscribe(new Consumer<Long>() {
-					@Override
-					public void accept(Long aLong) throws Exception {
-						System.out.println("aflhslfhlkjgklgjker   long === " + aLong);
-					}
-				});
+		disposables.add(dataSource.insertElement(element).subscribe(insertId -> System.out.println("insertId long === " + insertId)));
 	}
 
 }
