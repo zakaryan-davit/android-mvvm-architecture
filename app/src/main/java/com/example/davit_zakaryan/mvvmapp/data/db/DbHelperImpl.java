@@ -1,10 +1,13 @@
 package com.example.davit_zakaryan.mvvmapp.data.db;
 
 
-import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoMaster;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.CardGameEntity;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.CardGameEntityDao;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoSession;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntity;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntityDao;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.SnakeEntityDao;
+import com.example.davit_zakaryan.mvvmapp.data.db.model.TaskEntityDao;
 
 import java.util.List;
 
@@ -14,18 +17,26 @@ import io.reactivex.Single;
 
 public class DbHelperImpl implements DbHelper {
 
-	private DaoSession daoSession;
 	private ElementEntityDao entityDao;
+	private CardGameEntityDao cardGameEntityDao;
+	private SnakeEntityDao snakeEntityDao;
+	private TaskEntityDao taskEntityDao;
 
 	@Inject
-	DbHelperImpl(DbOpenHelper dbOpenHelper) {
-		daoSession = new DaoMaster(dbOpenHelper.getWritableDb()).newSession();
+	DbHelperImpl(DaoSession daoSession) {
 		entityDao = daoSession.getElementEntityDao();
+		cardGameEntityDao = daoSession.getCardGameEntityDao();
+		snakeEntityDao = daoSession.getSnakeEntityDao();
+		taskEntityDao = daoSession.getTaskEntityDao();
 	}
 
 	@Override
 	public Single<List<ElementEntity>> findAll() {
 		return Single.fromCallable(() -> entityDao.loadAll());
+	}
+
+	public Single<List<CardGameEntity>> findAllGames() {
+		return Single.fromCallable(() -> cardGameEntityDao.loadAll());
 	}
 
 	@Override

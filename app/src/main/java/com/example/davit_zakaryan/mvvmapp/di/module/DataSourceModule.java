@@ -1,8 +1,12 @@
 package com.example.davit_zakaryan.mvvmapp.di.module;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.davit_zakaryan.mvvmapp.data.db.DbOpenHelper;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoMaster;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoSession;
+import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
 import com.example.davit_zakaryan.mvvmapp.di.DatabaseInfo;
 import com.example.davit_zakaryan.mvvmapp.di.PreferenceInfo;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
@@ -13,7 +17,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class DatabaseModule {
+public class DataSourceModule {
 
 	@Provides
 	@Singleton
@@ -37,6 +41,12 @@ public class DatabaseModule {
 	@PreferenceInfo
 	String providePreferenceName() {
 		return Constants.PREF_NAME;
+	}
+
+	@Provides
+	@Singleton
+	SharedPreferences providePreferences(@ApplicationContext Context context, @PreferenceInfo String prefFileName) {
+		return context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
 	}
 
 }

@@ -1,10 +1,6 @@
 package com.example.davit_zakaryan.mvvmapp.data.prefs;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
-import com.example.davit_zakaryan.mvvmapp.di.PreferenceInfo;
 
 import javax.inject.Inject;
 
@@ -15,8 +11,8 @@ public class PreferencesHelperImpl implements PreferencesHelper {
 	private final SharedPreferences prefs;
 
 	@Inject
-	PreferencesHelperImpl(@ApplicationContext Context context, @PreferenceInfo String prefFileName) {
-		prefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
+	PreferencesHelperImpl(SharedPreferences preferences) {
+		this.prefs = preferences;
 	}
 
 	@Override
