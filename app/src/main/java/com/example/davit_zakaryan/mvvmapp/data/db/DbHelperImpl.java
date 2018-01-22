@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class DbHelperImpl implements DbHelper {
@@ -31,8 +32,8 @@ public class DbHelperImpl implements DbHelper {
 	}
 
 	@Override
-	public Single<List<ElementEntity>> findAll() {
-		return Single.fromCallable(() -> entityDao.loadAll());
+	public Flowable<List<ElementEntity>> findAll() {
+		return Flowable.fromCallable(() -> entityDao.loadAll());
 	}
 
 	public Single<List<CardGameEntity>> findAllGames() {
@@ -41,7 +42,9 @@ public class DbHelperImpl implements DbHelper {
 
 	@Override
 	public Single<Long> insertElement(ElementEntity elementEntity) {
-		return Single.fromCallable(() -> entityDao.insert(elementEntity));
+		//return Single.fromCallable(() -> entityDao.insert(elementEntity));
+		return Single.fromCallable(() -> entityDao.insertOrReplace(elementEntity));
+
 	}
 
 	@Override

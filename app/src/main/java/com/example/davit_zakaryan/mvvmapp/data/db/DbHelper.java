@@ -5,11 +5,12 @@ import com.example.davit_zakaryan.mvvmapp.data.db.model.ElementEntity;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public interface DbHelper {
 
-	Single<List<ElementEntity>> findAll();
+	Flowable<List<ElementEntity>> findAll();
 
 	//Flowable<List<ElementEntity>> findById();
 

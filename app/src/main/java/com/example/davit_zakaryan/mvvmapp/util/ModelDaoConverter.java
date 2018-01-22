@@ -14,12 +14,12 @@ public class ModelDaoConverter {
 
 	public static Element convertToElement(ItemModel itemModel) {
 		Element element = new Element();
+		element.serverId.set(itemModel.id);
 		element.level.set(itemModel.level);
 		element.description.set(itemModel.longDesc);
 		element.shortDesc.set(itemModel.shortDesc);
 		element.name.set(itemModel.title);
 		element.url.set(itemModel.url);
-		element.id.set(itemModel.id);
 		return element;
 	}
 

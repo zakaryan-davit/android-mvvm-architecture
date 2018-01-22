@@ -2,11 +2,13 @@ package com.example.davit_zakaryan.mvvmapp.di.module;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.databinding.BaseObservable;
 
 import com.example.davit_zakaryan.mvvmapp.data.db.DbOpenHelper;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoMaster;
 import com.example.davit_zakaryan.mvvmapp.data.db.model.DaoSession;
 import com.example.davit_zakaryan.mvvmapp.di.ApplicationContext;
+import com.example.davit_zakaryan.mvvmapp.di.DatabaseChangeObservable;
 import com.example.davit_zakaryan.mvvmapp.di.DatabaseInfo;
 import com.example.davit_zakaryan.mvvmapp.di.PreferenceInfo;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
@@ -47,6 +49,13 @@ public class DataSourceModule {
 	@Singleton
 	SharedPreferences providePreferences(@ApplicationContext Context context, @PreferenceInfo String prefFileName) {
 		return context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
+	}
+
+	@Provides
+	@Singleton
+	@DatabaseChangeObservable
+	BaseObservable provideBaseObservable() {
+		return new BaseObservable();
 	}
 
 }

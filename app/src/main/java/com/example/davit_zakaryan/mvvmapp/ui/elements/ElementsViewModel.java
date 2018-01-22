@@ -3,7 +3,7 @@ package com.example.davit_zakaryan.mvvmapp.ui.elements;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.databinding.ObservableList;
+import android.databinding.Observable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,8 +31,6 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private CompositeDisposable disposables = new CompositeDisposable();
-	private ObservableList<Element> domainElements;
-
 
 	@Inject
 	public ElementsViewModel(@ApplicationContext Context context, ElementsAdapter elementsAdapter,
@@ -40,7 +38,15 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 		super(dataSource);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.elementsAdapter = elementsAdapter;
+		disposables = new CompositeDisposable();
 		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
+
+		dataSource.databaseChangeObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+			@Override
+			public void onPropertyChanged(Observable observable, int i) {
+				disposables.add(dataSource.getElementListSingle().subscribe(elements -> updateAdapter(elements)));
+			}
+		});
 	}
 
 	@Override
@@ -77,8 +83,6 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	}
 
 	public void updateAdapter(List<Element> domainElements) {
-		//this.domainElements.clear();
-		//this.domainElements.addAll(domainElements);
 		elementsAdapter.setElements(domainElements);
 	}
 

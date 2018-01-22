@@ -6,6 +6,7 @@ import android.databinding.ObservableInt;
 public class Element {
 
 	public ObservableField<String> id = new ObservableField<>();
+	public ObservableField<String> serverId = new ObservableField<>();
 	public ObservableInt level = new ObservableInt();
 	public ObservableField<String> name = new ObservableField<>();
 	public ObservableField<String> shortDesc = new ObservableField<>();
