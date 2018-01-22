@@ -54,11 +54,6 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	}
 
 	@Override
-	public void onStop() {
-		disposables.dispose();
-	}
-
-	@Override
 	public RecyclerView.LayoutManager getLayoutManager() {
 		final boolean hasTwoPanes = context.getResources().getBoolean(R.bool.hasTwoPanes);
 		int columnCount = 1;

@@ -39,12 +39,6 @@ public class ElementFormViewModel extends BaseViewModel {
 		//this.element = networkHelper.addElement();
 	}
 
-	@Override
-	public void onStop() {
-		disposables.dispose();
-	}
-
-
 	public void onClickButtonSave(@NonNull Element element) {
 		disposables.add(dataSource.insertElement(element).subscribe(insertId -> System.out.println("insertId long === " + insertId)));
 	}

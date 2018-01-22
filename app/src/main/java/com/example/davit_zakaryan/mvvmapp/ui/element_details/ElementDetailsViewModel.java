@@ -33,9 +33,4 @@ public class ElementDetailsViewModel extends BaseViewModel {
 	public void onStart() {
 
 	}
-
-	@Override
-	public void onStop() {
-
-	}
 }

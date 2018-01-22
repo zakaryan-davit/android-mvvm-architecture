@@ -69,7 +69,7 @@ public class ElementsViewModelTest {
 
 
 	@Test
-	public void testVerify()  {
+	public void testVerify() {
 		// create and configure mock
 		ElementsViewModel test = Mockito.mock(ElementsViewModel.class);
 		when(test.getSimpleInteger()).thenReturn(43);
