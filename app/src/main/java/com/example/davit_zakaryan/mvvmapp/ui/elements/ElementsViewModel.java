@@ -21,6 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 
 import static com.example.davit_zakaryan.mvvmapp.util.Constants.EXTRA_IS_ELEMENT_CREATED;
 
@@ -30,7 +31,9 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	private Context context; // To avoid leaks, this must be an Application Context.
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
-	private CompositeDisposable disposables = new CompositeDisposable();
+	private final Observable.OnPropertyChangedCallback callback;
+	private PublishSubject<Integer> subject;
+
 
 	@Inject
 	public ElementsViewModel(@ApplicationContext Context context, ElementsAdapter elementsAdapter,
@@ -38,19 +41,30 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 		super(dataSource, disposables);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.elementsAdapter = elementsAdapter;
-		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
-
-		dataSource.databaseChangeObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+		callback = new Observable.OnPropertyChangedCallback() {
 			@Override
 			public void onPropertyChanged(Observable observable, int i) {
 				disposables.add(dataSource.getElementListSingle().subscribe(elements -> updateAdapter(elements)));
 			}
-		});
+		};
+		dataSource.databaseChangeObservable.addOnPropertyChangedCallback(callback);
+		subject = PublishSubject.create();
+		elementsAdapter.setChangeListener(index -> subject.onNext(index));
 	}
 
 	@Override
 	public void onStart() {
 		disposables.add(dataSource.getElementListSingle().subscribe(this::updateAdapter));
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		dataSource.databaseChangeObservable.removeOnPropertyChangedCallback(callback);
+	}
+
+	public PublishSubject<Integer> getSubject() {
+		return subject;
 	}
 
 	@Override
@@ -82,6 +96,11 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 
 	public void setChosenType(int chosenType) {
 		// TODO update list notify adapter
+		// TODO add fragment transaction
+		//  Bundle bundle = new Bundle();
+		//  bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
+		//	ElementDetailsFragment fragment = new ElementDetailsFragment();
+		//	fragment.setArguments(bundle);
 	}
 
 	public int getChosenType() {

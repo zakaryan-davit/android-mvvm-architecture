@@ -22,7 +22,6 @@ public class ElementDetailsViewModel extends BaseViewModel {
 
 	public void setElement(Element element) {
 		this.element = element;
-		//notifyChange();
 	}
 
 	public Element getElement() {

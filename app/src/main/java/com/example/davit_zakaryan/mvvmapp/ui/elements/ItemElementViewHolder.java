@@ -15,18 +15,22 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListen
  */
 public class ItemElementViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-	static ItemElementViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
-		ItemElementBinding binding = ItemElementBinding.inflate(layoutInflater, parent, false);
-		return new ItemElementViewHolder(binding);
-	}
-
 	private ItemElementBinding itemElementBinding;
 	private OnElementSelectionChangeListener changeListener;
 
-	private ItemElementViewHolder(ItemElementBinding elementBinding) {
+
+	private ItemElementViewHolder(ItemElementBinding elementBinding,
+	                              OnElementSelectionChangeListener changeListener) {
 		super(elementBinding.getRoot());
 		elementBinding.getRoot().setOnClickListener(this);
 		this.itemElementBinding = elementBinding;
+		this.changeListener = changeListener;
+	}
+
+	static ItemElementViewHolder newInstance(LayoutInflater layoutInflater, ViewGroup parent,
+	                                         OnElementSelectionChangeListener changeListener) {
+		ItemElementBinding binding = ItemElementBinding.inflate(layoutInflater, parent, false);
+		return new ItemElementViewHolder(binding, changeListener);
 	}
 
 	public void bindTo(@NonNull Element element) {
@@ -36,17 +40,10 @@ public class ItemElementViewHolder extends RecyclerView.ViewHolder implements Vi
 
 	@Override
 	public void onClick(View v) {
-
 		int position = getAdapterPosition();
 		if (position != RecyclerView.NO_POSITION) {
-			//changeListener.onSelectionChanged(getAdapterPosition());
+			changeListener.onSelectionChanged(getAdapterPosition());
 		}
-
-		// TODO add fragment transaction
-		//  Bundle bundle = new Bundle();
-		//  bundle.putInt(Constants.EXTRA_CHOSEN_TYPE, chosenType);
-		//	ElementDetailsFragment fragment = new ElementDetailsFragment();
-		//	fragment.setArguments(bundle);
 	}
 }
 
