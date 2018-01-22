@@ -34,11 +34,10 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 
 	@Inject
 	public ElementsViewModel(@ApplicationContext Context context, ElementsAdapter elementsAdapter,
-	                         DataSource dataSource) {
-		super(dataSource);
+	                         DataSource dataSource, CompositeDisposable disposables) {
+		super(dataSource, disposables);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		this.elementsAdapter = elementsAdapter;
-		disposables = new CompositeDisposable();
 		//elementsAdapter.setChangeListener((OnElementSelectionChangeListener) context);
 
 		dataSource.databaseChangeObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {

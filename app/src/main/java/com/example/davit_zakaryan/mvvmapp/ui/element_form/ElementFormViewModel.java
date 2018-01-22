@@ -18,12 +18,11 @@ public class ElementFormViewModel extends BaseViewModel {
 	private Context context;
 	public boolean isCreated;
 	private ObservableField<Element> elementObservable = new ObservableField<>();
-	private CompositeDisposable disposables = new CompositeDisposable();
 
 	@Inject
 	ElementFormViewModel(@ApplicationContext Context context,
-	                     DataSource dataSource) {
-		super(dataSource);
+	                     DataSource dataSource, CompositeDisposable disposables) {
+		super(dataSource, disposables);
 		this.context = context.getApplicationContext(); // Force use of Application Context.
 		if (!isCreated) {
 			this.elementObservable = new ObservableField<>(new Element());

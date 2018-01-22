@@ -6,6 +6,8 @@ import com.example.davit_zakaryan.mvvmapp.ui.base.BaseViewModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * Created by Davit_Zakaryan on 12/8/2017.
  */
@@ -14,8 +16,8 @@ public class ElementDetailsViewModel extends BaseViewModel {
 	private Element element;
 
 	@Inject
-	public ElementDetailsViewModel(DataSource dataSource) {
-		super(dataSource);
+	public ElementDetailsViewModel(DataSource dataSource, CompositeDisposable disposables) {
+		super(dataSource, disposables);
 	}
 
 	public void setElement(Element element) {
