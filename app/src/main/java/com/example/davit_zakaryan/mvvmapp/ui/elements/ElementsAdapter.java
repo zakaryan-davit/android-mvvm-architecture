@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
-import com.example.davit_zakaryan.mvvmapp.ui.base.OnElementSelectionChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by Davit_Zakaryan on 12/5/2017.
@@ -22,7 +23,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ItemElementViewHolder>
 	// Fields
 	// ===========================================================
 
-	private OnElementSelectionChangeListener changeListener;
+	private PublishSubject<Element> itemClickSubject = PublishSubject.create();
 	private List<Element> elements = new ArrayList<>();
 
 
@@ -30,8 +31,8 @@ public class ElementsAdapter extends RecyclerView.Adapter<ItemElementViewHolder>
 	ElementsAdapter() {
 	}
 
-	public void setChangeListener(OnElementSelectionChangeListener changeListener) {
-		this.changeListener = changeListener;
+	public PublishSubject<Element> getItemClickSubject() {
+		return itemClickSubject;
 	}
 
 	public void setElements(List<Element> elements) {
@@ -47,7 +48,7 @@ public class ElementsAdapter extends RecyclerView.Adapter<ItemElementViewHolder>
 	@Override
 	public ItemElementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-		return ItemElementViewHolder.newInstance(layoutInflater, parent, changeListener);
+		return ItemElementViewHolder.newInstance(layoutInflater, parent, index -> itemClickSubject.onNext(elements.get(index)));
 	}
 
 	@Override

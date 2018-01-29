@@ -13,15 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.davit_zakaryan.mvvmapp.App;
-import com.example.davit_zakaryan.mvvmapp.FakeData;
 import com.example.davit_zakaryan.mvvmapp.R;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementDetailsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 import com.example.davit_zakaryan.mvvmapp.util.Constants;
-import com.example.davit_zakaryan.mvvmapp.util.RxBus;
 
 import javax.inject.Inject;
+
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by Davit_Zakaryan on 12/8/2017.
@@ -29,21 +29,17 @@ import javax.inject.Inject;
 
 public class ElementDetailsFragment extends BaseFragment {
 
-
-	public static String KEY_POSITION = "position";
-	private Element element;
 	private int chosenType;
 
 	@Inject
-	ElementDetailsViewModel viewModel;
-
-	@Inject
-	RxBus rxBus;
+	ElementDetailsViewModel elementDetailsViewModel;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		initActionBar();
 
 		// ViewModel creation
 		App.get(getActivity()).getAppComponent().inject(this);
@@ -52,22 +48,17 @@ public class ElementDetailsFragment extends BaseFragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 		FragmentElementDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_element_details, container, false);
+		binding.setViewModel(elementDetailsViewModel);
+		return binding.getRoot();
+	}
+
+	private void initActionBar() {
 		chosenType = 0;
-		int selectedIndex = 0;
 		if (getArguments() != null) {
 			chosenType = getArguments().getInt(Constants.EXTRA_CHOSEN_TYPE);
-			selectedIndex = getArguments().getInt(KEY_POSITION);
 		}
 		getActivity().setTitle(chosenType);
-
-
-		element = FakeData.getElementList().get(selectedIndex);
-		viewModel.setElement(element);
-
-
-		binding.setViewModel(viewModel);
 
 		// Show the Up button in the action bar.
 		ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -75,8 +66,6 @@ public class ElementDetailsFragment extends BaseFragment {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setDisplayShowHomeEnabled(true);
 		}
-
-		return binding.getRoot();
 	}
 
 
@@ -97,8 +86,7 @@ public class ElementDetailsFragment extends BaseFragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void setElement(int index) {
-		element = FakeData.getElementList().get(index);
-		viewModel.setElement(element);
+	public void setElementStream(PublishSubject<Element> elementStream) {
+		elementDetailsViewModel.setElementPublishSubject(elementStream);
 	}
 }

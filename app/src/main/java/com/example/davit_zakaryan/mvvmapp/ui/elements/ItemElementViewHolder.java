@@ -33,7 +33,7 @@ public class ItemElementViewHolder extends RecyclerView.ViewHolder implements Vi
 		return new ItemElementViewHolder(binding, changeListener);
 	}
 
-	public void bindTo(@NonNull Element element) {
+	void bindTo(@NonNull Element element) {
 		itemElementBinding.setViewModel(element);
 		itemElementBinding.executePendingBindings();
 	}

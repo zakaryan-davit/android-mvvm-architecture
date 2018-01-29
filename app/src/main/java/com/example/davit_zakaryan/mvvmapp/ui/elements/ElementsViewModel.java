@@ -32,7 +32,7 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	private ElementsAdapter elementsAdapter;
 	private int chosenType; //TODO make intDef
 	private final Observable.OnPropertyChangedCallback callback;
-	private PublishSubject<Integer> subject;
+	//private PublishSubject<Integer> subject;
 
 
 	@Inject
@@ -48,8 +48,10 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 			}
 		};
 		dataSource.databaseChangeObservable.addOnPropertyChangedCallback(callback);
-		subject = PublishSubject.create();
-		elementsAdapter.setChangeListener(index -> subject.onNext(index));
+	}
+
+	PublishSubject<Element> getElementStream() {
+		return elementsAdapter.getItemClickSubject();
 	}
 
 	@Override
@@ -61,10 +63,6 @@ public class ElementsViewModel extends BaseViewModel implements RecyclerViewView
 	protected void onStop() {
 		super.onStop();
 		dataSource.databaseChangeObservable.removeOnPropertyChangedCallback(callback);
-	}
-
-	public PublishSubject<Integer> getSubject() {
-		return subject;
 	}
 
 	@Override

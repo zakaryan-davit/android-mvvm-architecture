@@ -24,7 +24,8 @@ public class HomeActivity extends BaseActivity implements OnElementSelectionChan
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		// Check whether the Activity is using the layout version with the fragment_container FrameLayout and if so we must add the first fragment
+		// Check whether the Activity is using the layout version with the
+		// fragment_container FrameLayout and if so we must add the first fragment
 		if (findViewById(R.id.fragment_container) != null) {
 
 			if (savedInstanceState != null) {
@@ -37,6 +38,17 @@ public class HomeActivity extends BaseActivity implements OnElementSelectionChan
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.fragment_container, elementsFragment)
 					.commit();
+		} else {
+
+			ElementsFragment elementsFragment = (ElementsFragment) getSupportFragmentManager()
+					.findFragmentById(R.id.elements_fragment);
+			ElementDetailsFragment detailsFragment = (ElementDetailsFragment) getSupportFragmentManager()
+					.findFragmentById(R.id.element_details_fragment);
+
+
+			if (detailsFragment != null) {
+				detailsFragment.setElementStream(elementsFragment.getElementStream());
+			}
 		}
 	}
 
@@ -70,12 +82,12 @@ public class HomeActivity extends BaseActivity implements OnElementSelectionChan
 		if (detailsFragment != null) {
 			// If details is available, we are in two pane layout
 			// so we call the method in ElementDetailsFragment to update its content
-			detailsFragment.setElement(index);
+			///detailsFragment.setElement(index);
 		} else {
 			ElementDetailsFragment newDetailsFragment = new ElementDetailsFragment();
 			Bundle args = new Bundle();
 
-			args.putInt(ElementDetailsFragment.KEY_POSITION, index);
+			///args.putInt(ElementDetailsFragment.KEY_POSITION, index);
 			newDetailsFragment.setArguments(args);
 			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

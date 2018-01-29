@@ -19,10 +19,13 @@ import android.widget.Toast;
 
 import com.example.davit_zakaryan.mvvmapp.App;
 import com.example.davit_zakaryan.mvvmapp.R;
+import com.example.davit_zakaryan.mvvmapp.data.model.Element;
 import com.example.davit_zakaryan.mvvmapp.databinding.FragmentElementsBinding;
 import com.example.davit_zakaryan.mvvmapp.ui.base.BaseFragment;
 
 import javax.inject.Inject;
+
+import io.reactivex.subjects.PublishSubject;
 
 public class ElementsFragment extends BaseFragment {
 
@@ -103,5 +106,9 @@ public class ElementsFragment extends BaseFragment {
 				})
 				.setNegativeButton(R.string.dialog_cancel, null);
 		return builder.create();
+	}
+
+	public PublishSubject<Element> getElementStream(){
+		return elementsViewModel.getElementStream();
 	}
 }
