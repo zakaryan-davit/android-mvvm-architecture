@@ -1,6 +1,7 @@
 package com.example.davit_zakaryan.mvvmapp.ui.element_details;
 
 import android.databinding.ObservableField;
+import android.view.View;
 
 import com.example.davit_zakaryan.mvvmapp.data.DataSource;
 import com.example.davit_zakaryan.mvvmapp.data.model.Element;
@@ -18,7 +19,6 @@ import io.reactivex.subjects.PublishSubject;
 public class ElementDetailsViewModel extends BaseViewModel {
 
 	private ObservableField<Element> elementObservable;
-	private PublishSubject<Element> elementPublishSubject;
 
 	@Inject
 	public ElementDetailsViewModel(DataSource dataSource, CompositeDisposable disposables) {
@@ -40,12 +40,17 @@ public class ElementDetailsViewModel extends BaseViewModel {
 	}
 
 	public void setElementPublishSubject(PublishSubject<Element> elementPublishSubject) {
-		this.elementPublishSubject = elementPublishSubject;
 		elementPublishSubject.subscribe(new Consumer<Element>() {
 			@Override
 			public void accept(Element element) throws Exception {
 				setElement(element);
 			}
 		});
+	}
+
+	// TODO should be removed to some Handlers class
+	public void onClickButtonFab(View view) {
+		System.out.println("Fab click");
+		elementObservable.get().incrementLevel();
 	}
 }
